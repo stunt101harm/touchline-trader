@@ -1,0 +1,28 @@
+{
+  "name": "touchline-trader",
+  "version": "1.0.0",
+  "description": "**Trade the match like a stock.**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stunt101harm/touchline-trader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/stunt101harm/touchline-trader/issues"
+  },
+  "homepage": "https://github.com/stunt101harm/touchline-trader#readme",
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.32.1",
+    "@solana/spl-token": "^0.4.15",
+    "@solana/web3.js": "^1.98.4",
+    "bs58": "^6.0.0",
+    "tweetnacl": "^1.0.3"
+  }
+}

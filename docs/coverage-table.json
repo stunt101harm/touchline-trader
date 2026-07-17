@@ -1,0 +1,1052 @@
+[
+ {
+  "id": 17588227,
+  "match": "Mexico-South Africa",
+  "start": "2026-06-11T19:05",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 93,
+  "oddsIntervalTotal": 460,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926696,
+  "match": "South Korea-Czech Republic",
+  "start": "2026-06-12T02:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 250,
+  "oddsIntervalTotal": 422,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926604,
+  "match": "Canada-Bosnia & Herzegovina",
+  "start": "2026-06-12T19:02",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 51,
+  "oddsIntervalTotal": 394,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588394,
+  "match": "USA-Paraguay",
+  "start": "2026-06-12T22:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 0,
+  "oddsIntervalTotal": 274,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588396,
+  "match": "USA-Paraguay",
+  "start": "2026-06-13T01:02",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 157,
+  "oddsIntervalTotal": 506,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588308,
+  "match": "Qatar-Switzerland",
+  "start": "2026-06-13T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 847,
+  "oddsIntervalTotal": 1907,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588386,
+  "match": "Brazil-Morocco",
+  "start": "2026-06-13T22:04",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 228,
+  "oddsIntervalTotal": 561,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588316,
+  "match": "Haiti-Scotland",
+  "start": "2026-06-14T01:02",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 323,
+  "oddsIntervalTotal": 1017,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926689,
+  "match": "Australia-Turkey",
+  "start": "2026-06-14T04:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 242,
+  "oddsIntervalTotal": 678,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588318,
+  "match": "Germany-Curacao",
+  "start": "2026-06-14T17:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 417,
+  "oddsIntervalTotal": 948,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588305,
+  "match": "Netherlands-Japan",
+  "start": "2026-06-14T20:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 170,
+  "oddsIntervalTotal": 362,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588239,
+  "match": "Ivory Coast-Ecuador",
+  "start": "2026-06-14T23:03",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 81,
+  "oddsIntervalTotal": 227,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926553,
+  "match": "Sweden-Tunisia",
+  "start": "2026-06-15T02:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 134,
+  "oddsIntervalTotal": 200,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588403,
+  "match": "Spain-Cape Verde",
+  "start": "2026-06-15T16:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 1337,
+  "oddsIntervalTotal": 2940,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588230,
+  "match": "Belgium-Egypt",
+  "start": "2026-06-15T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 86,
+  "oddsIntervalTotal": 622,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588311,
+  "match": "Saudi Arabia-Uruguay",
+  "start": "2026-06-15T22:04",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 157,
+  "oddsIntervalTotal": 362,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588241,
+  "match": "Iran-New Zealand",
+  "start": "2026-06-16T01:03",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 237,
+  "oddsIntervalTotal": 324,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588306,
+  "match": "France-Senegal",
+  "start": "2026-06-16T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 276,
+  "oddsIntervalTotal": 501,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926828,
+  "match": "Iraq-Norway",
+  "start": "2026-06-16T22:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 1399,
+  "oddsIntervalTotal": 1821,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588322,
+  "match": "Argentina-Algeria",
+  "start": "2026-06-17T01:02",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 26,
+  "oddsIntervalTotal": 191,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588405,
+  "match": "Austria-Jordan",
+  "start": "2026-06-17T04:02",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 129,
+  "oddsIntervalTotal": 378,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926703,
+  "match": "Portugal-Congo DR",
+  "start": "2026-06-17T17:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 184,
+  "oddsIntervalTotal": 550,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588228,
+  "match": "England-Croatia",
+  "start": "2026-06-17T20:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 335,
+  "oddsIntervalTotal": 822,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588406,
+  "match": "Ghana-Panama",
+  "start": "2026-06-17T23:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 119,
+  "oddsIntervalTotal": 277,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588399,
+  "match": "Uzbekistan-Colombia",
+  "start": "2026-06-18T02:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 5153,
+  "oddsIntervalTotal": 5369,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926765,
+  "match": "Czech Republic-South Africa",
+  "start": "2026-06-18T16:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 3122,
+  "oddsIntervalTotal": 3411,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926603,
+  "match": "Switzerland-Bosnia & Herzegovina",
+  "start": "2026-06-18T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 339,
+  "oddsIntervalTotal": 542,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588238,
+  "match": "Canada-Qatar",
+  "start": "2026-06-18T22:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 236,
+  "oddsIntervalTotal": 362,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588223,
+  "match": "Mexico-South Korea",
+  "start": "2026-06-19T01:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 97,
+  "oddsIntervalTotal": 282,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588388,
+  "match": "USA-Australia",
+  "start": "2026-06-19T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 142,
+  "oddsIntervalTotal": 340,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588397,
+  "match": "Scotland-Morocco",
+  "start": "2026-06-19T22:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 164,
+  "oddsIntervalTotal": 396,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588317,
+  "match": "Brazil-Haiti",
+  "start": "2026-06-20T00:30",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 1245,
+  "oddsIntervalTotal": 1757,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926688,
+  "match": "Turkey-Paraguay",
+  "start": "2026-06-20T03:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 656,
+  "oddsIntervalTotal": 1280,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926687,
+  "match": "Netherlands-Sweden",
+  "start": "2026-06-20T17:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 457,
+  "oddsIntervalTotal": 749,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588240,
+  "match": "Germany-Ivory Coast",
+  "start": "2026-06-20T20:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 308,
+  "oddsIntervalTotal": 484,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588320,
+  "match": "Ecuador-Curacao",
+  "start": "2026-06-21T00:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 1633,
+  "oddsIntervalTotal": 2095,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588310,
+  "match": "Tunisia-Japan",
+  "start": "2026-06-21T04:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 363,
+  "oddsIntervalTotal": 815,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588232,
+  "match": "Spain-Saudi Arabia",
+  "start": "2026-06-21T16:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 813,
+  "oddsIntervalTotal": 1401,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588390,
+  "match": "Belgium-Iran",
+  "start": "2026-06-21T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 1489,
+  "oddsIntervalTotal": 1764,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588235,
+  "match": "Uruguay-Cape Verde",
+  "start": "2026-06-21T22:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 268,
+  "oddsIntervalTotal": 727,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588242,
+  "match": "New Zealand-Egypt",
+  "start": "2026-06-22T01:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 238,
+  "oddsIntervalTotal": 305,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588389,
+  "match": "Argentina-Austria",
+  "start": "2026-06-22T17:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 59,
+  "oddsIntervalTotal": 394,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926647,
+  "match": "France-Iraq",
+  "start": "2026-06-22T21:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 86,
+  "oddsIntervalTotal": 478,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588313,
+  "match": "Norway-Senegal",
+  "start": "2026-06-23T00:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 283,
+  "oddsIntervalTotal": 461,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588244,
+  "match": "Jordan-Algeria",
+  "start": "2026-06-23T03:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 93,
+  "oddsIntervalTotal": 1317,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588231,
+  "match": "Portugal-Uzbekistan",
+  "start": "2026-06-23T17:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 149,
+  "oddsIntervalTotal": 715,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588324,
+  "match": "England-Ghana",
+  "start": "2026-06-23T20:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 785,
+  "oddsIntervalTotal": 1130,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588401,
+  "match": "Panama-Croatia",
+  "start": "2026-06-23T23:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 338,
+  "oddsIntervalTotal": 746,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926615,
+  "match": "Colombia-Congo DR",
+  "start": "2026-06-24T02:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 3275,
+  "oddsIntervalTotal": 3390,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588303,
+  "match": "Switzerland-Canada",
+  "start": "2026-06-24T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 238,
+  "oddsIntervalTotal": 925,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926766,
+  "match": "Bosnia & Herzegovina-Qatar",
+  "start": "2026-06-24T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 153,
+  "oddsIntervalTotal": 925,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588319,
+  "match": "Morocco-Haiti",
+  "start": "2026-06-24T22:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 253,
+  "oddsIntervalTotal": 1378,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588398,
+  "match": "Scotland-Brazil",
+  "start": "2026-06-24T22:01",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 342,
+  "oddsIntervalTotal": 1378,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588395,
+  "match": "South Africa-South Korea",
+  "start": "2026-06-25T01:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 147,
+  "oddsIntervalTotal": 410,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926764,
+  "match": "Czech Republic-Mexico",
+  "start": "2026-06-25T01:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 147,
+  "oddsIntervalTotal": 410,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588302,
+  "match": "Ecuador-Germany",
+  "start": "2026-06-25T20:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 242,
+  "oddsIntervalTotal": 2228,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588321,
+  "match": "Curacao-Ivory Coast",
+  "start": "2026-06-25T20:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 96,
+  "oddsIntervalTotal": 2228,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588400,
+  "match": "Tunisia-Switzerland",
+  "start": "2026-06-25T22:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 0,
+  "oddsIntervalTotal": 6910,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588236,
+  "match": "Tunisia-Netherlands",
+  "start": "2026-06-25T23:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 212,
+  "oddsIntervalTotal": 907,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926686,
+  "match": "Japan-Sweden",
+  "start": "2026-06-25T23:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 422,
+  "oddsIntervalTotal": 907,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588229,
+  "match": "Paraguay-Australia",
+  "start": "2026-06-26T02:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 1354,
+  "oddsIntervalTotal": 1631,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926593,
+  "match": "Turkey-USA",
+  "start": "2026-06-26T02:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 155,
+  "oddsIntervalTotal": 1631,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588234,
+  "match": "Norway-France",
+  "start": "2026-06-26T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 58,
+  "oddsIntervalTotal": 823,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926740,
+  "match": "Senegal-Iraq",
+  "start": "2026-06-26T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 263,
+  "oddsIntervalTotal": 823,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588314,
+  "match": "Cape Verde-Saudi Arabia",
+  "start": "2026-06-27T00:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 101,
+  "oddsIntervalTotal": 402,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588404,
+  "match": "Uruguay-Spain",
+  "start": "2026-06-27T00:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 108,
+  "oddsIntervalTotal": 402,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588309,
+  "match": "Egypt-Iran",
+  "start": "2026-06-27T03:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 183,
+  "oddsIntervalTotal": 1522,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588323,
+  "match": "New Zealand-Belgium",
+  "start": "2026-06-27T03:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 161,
+  "oddsIntervalTotal": 1522,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588245,
+  "match": "Croatia-Ghana",
+  "start": "2026-06-27T21:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 111,
+  "oddsIntervalTotal": 1196,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588402,
+  "match": "Panama-England",
+  "start": "2026-06-27T21:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 253,
+  "oddsIntervalTotal": 1196,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588391,
+  "match": "Colombia-Portugal",
+  "start": "2026-06-27T23:31",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 235,
+  "oddsIntervalTotal": 721,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17926704,
+  "match": "Congo DR-Uzbekistan",
+  "start": "2026-06-27T23:31",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 145,
+  "oddsIntervalTotal": 721,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588325,
+  "match": "Jordan-Argentina",
+  "start": "2026-06-28T02:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 255,
+  "oddsIntervalTotal": 1071,
+  "oddsStatus": 200
+ },
+ {
+  "id": 17588326,
+  "match": "Algeria-Austria",
+  "start": "2026-06-28T02:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 545,
+  "oddsIntervalTotal": 1071,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18167317,
+  "match": "South Africa-Canada",
+  "start": "2026-06-28T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 314,
+  "oddsIntervalTotal": 496,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18172469,
+  "match": "Brazil-Japan",
+  "start": "2026-06-29T17:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 251,
+  "oddsIntervalTotal": 402,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18175983,
+  "match": "Germany-Paraguay",
+  "start": "2026-06-29T20:30",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 109,
+  "oddsIntervalTotal": 440,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18172280,
+  "match": "Netherlands-Morocco",
+  "start": "2026-06-30T01:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 67,
+  "oddsIntervalTotal": 207,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18175397,
+  "match": "Ivory Coast-Norway",
+  "start": "2026-06-30T17:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 239,
+  "oddsIntervalTotal": 407,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18175981,
+  "match": "France-Sweden",
+  "start": "2026-06-30T21:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 272,
+  "oddsIntervalTotal": 438,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18179759,
+  "match": "Mexico-Ecuador",
+  "start": "2026-07-01T02:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 388,
+  "oddsIntervalTotal": 537,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18179764,
+  "match": "England-Congo DR",
+  "start": "2026-07-01T16:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 423,
+  "oddsIntervalTotal": 529,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18179550,
+  "match": "Belgium-Senegal",
+  "start": "2026-07-01T20:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 396,
+  "oddsIntervalTotal": 459,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18172379,
+  "match": "USA-Bosnia & Herzegovina",
+  "start": "2026-07-02T00:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 141,
+  "oddsIntervalTotal": 265,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18179551,
+  "match": "Spain-Austria",
+  "start": "2026-07-02T19:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 0,
+  "oddsIntervalTotal": 0,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18179763,
+  "match": "Portugal-Croatia",
+  "start": "2026-07-02T23:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 329,
+  "oddsIntervalTotal": 457,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18179552,
+  "match": "Switzerland-Algeria",
+  "start": "2026-07-03T03:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 149,
+  "oddsIntervalTotal": 705,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18176123,
+  "match": "Australia-Egypt",
+  "start": "2026-07-03T18:00",
+  "scoreEvents": 0,
+  "scoresStatus": 200,
+  "oddsIn5min": 284,
+  "oddsIntervalTotal": 343,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18175918,
+  "match": "Argentina-Cape Verde",
+  "start": "2026-07-03T22:00",
+  "scoreEvents": 1243,
+  "scoresStatus": 200,
+  "oddsIn5min": 124,
+  "oddsIntervalTotal": 230,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18179549,
+  "match": "Colombia-Ghana",
+  "start": "2026-07-04T01:30",
+  "scoreEvents": 1039,
+  "scoresStatus": 200,
+  "oddsIn5min": 160,
+  "oddsIntervalTotal": 251,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18185036,
+  "match": "Canada-Morocco",
+  "start": "2026-07-04T17:00",
+  "scoreEvents": 1123,
+  "scoresStatus": 200,
+  "oddsIn5min": 241,
+  "oddsIntervalTotal": 381,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18188721,
+  "match": "Paraguay-France",
+  "start": "2026-07-04T21:03",
+  "scoreEvents": 966,
+  "scoresStatus": 200,
+  "oddsIn5min": 1615,
+  "oddsIntervalTotal": 1787,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18187298,
+  "match": "Brazil-Norway",
+  "start": "2026-07-05T20:00",
+  "scoreEvents": 1102,
+  "scoresStatus": 200,
+  "oddsIn5min": 276,
+  "oddsIntervalTotal": 410,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18192996,
+  "match": "Mexico-England",
+  "start": "2026-07-06T01:00",
+  "scoreEvents": 1048,
+  "scoresStatus": 200,
+  "oddsIn5min": 236,
+  "oddsIntervalTotal": 243,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18198205,
+  "match": "Portugal-Spain",
+  "start": "2026-07-06T19:00",
+  "scoreEvents": 994,
+  "scoresStatus": 200,
+  "oddsIn5min": 203,
+  "oddsIntervalTotal": 391,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18193785,
+  "match": "USA-Belgium",
+  "start": "2026-07-07T00:00",
+  "scoreEvents": 1125,
+  "scoresStatus": 200,
+  "oddsIn5min": 5536,
+  "oddsIntervalTotal": 5748,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18202701,
+  "match": "Argentina-Egypt",
+  "start": "2026-07-07T16:00",
+  "scoreEvents": 563,
+  "scoresStatus": 200,
+  "oddsIn5min": 161,
+  "oddsIntervalTotal": 189,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18202783,
+  "match": "Switzerland-Colombia",
+  "start": "2026-07-07T20:00",
+  "scoreEvents": 1355,
+  "scoresStatus": 200,
+  "oddsIn5min": 278,
+  "oddsIntervalTotal": 284,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18209181,
+  "match": "France-Morocco",
+  "start": "2026-07-09T20:00",
+  "scoreEvents": 1116,
+  "scoresStatus": 200,
+  "oddsIn5min": 391,
+  "oddsIntervalTotal": 403,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18218149,
+  "match": "Spain-Belgium",
+  "start": "2026-07-10T19:00",
+  "scoreEvents": 1089,
+  "scoresStatus": 200,
+  "oddsIn5min": 662,
+  "oddsIntervalTotal": 772,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18213979,
+  "match": "Norway-England",
+  "start": "2026-07-11T21:00",
+  "scoreEvents": 1185,
+  "scoresStatus": 200,
+  "oddsIn5min": 479,
+  "oddsIntervalTotal": 724,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18222446,
+  "match": "Argentina-Switzerland",
+  "start": "2026-07-12T01:00",
+  "scoreEvents": 1307,
+  "scoresStatus": 200,
+  "oddsIn5min": 156,
+  "oddsIntervalTotal": 166,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18237038,
+  "match": "France-Spain",
+  "start": "2026-07-14T19:00",
+  "scoreEvents": 1027,
+  "scoresStatus": 200,
+  "oddsIn5min": 203,
+  "oddsIntervalTotal": 211,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18241006,
+  "match": "England-Argentina",
+  "start": "2026-07-15T19:00",
+  "scoreEvents": 964,
+  "scoresStatus": 200,
+  "oddsIn5min": 293,
+  "oddsIntervalTotal": 293,
+  "oddsStatus": 200
+ },
+ {
+  "id": 18257865,
+  "match": "France-England",
+  "upcoming": true
+ },
+ {
+  "id": 18257739,
+  "match": "Spain-Argentina",
+  "upcoming": true
+ }
+]
