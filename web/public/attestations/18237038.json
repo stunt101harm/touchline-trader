@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18237038,
+ "match": "France-Spain",
+ "regulation": [
+  0,
+  2
+ ],
+ "goals": [
+  0,
+  2
+ ],
+ "winner": "away",
+ "statRoot": "HyS1YycjsGwokXeMMmm7w7VsymoiPRkr3Ri7M8Uky7De",
+ "seq": 1026,
+ "finalTs": 1784063054751,
+ "txSig": "2uMqyawp68UzVq47ejeHurKAV7XHa9mgzoZ857oZHf8FtLX6pfq3FRNGcRAcDBBGsLeb3A3oGwU1AQpVzkfsCYbW",
+ "solscan": "https://solscan.io/tx/2uMqyawp68UzVq47ejeHurKAV7XHa9mgzoZ857oZHf8FtLX6pfq3FRNGcRAcDBBGsLeb3A3oGwU1AQpVzkfsCYbW?cluster=devnet"
+}

@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18192996,
+ "match": "Mexico-England",
+ "regulation": [
+  2,
+  3
+ ],
+ "goals": [
+  2,
+  3
+ ],
+ "winner": "away",
+ "statRoot": "FF4TsjCYcBheRUfEPGcVLVgAbzkFMhMpV4UcH9eV5dBv",
+ "seq": 1046,
+ "finalTs": 1783307714951,
+ "txSig": "tcVuink4X5dEdwPXTjxYDLDdVzirBBhGvecroZy2a39SLtzma18hhHLDdysQJYMGwNzk1EjfapTDfWHFcjT6u6u",
+ "solscan": "https://solscan.io/tx/tcVuink4X5dEdwPXTjxYDLDdVzirBBhGvecroZy2a39SLtzma18hhHLDdysQJYMGwNzk1EjfapTDfWHFcjT6u6u?cluster=devnet"
+}

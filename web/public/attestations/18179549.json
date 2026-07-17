@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18179549,
+ "match": "Colombia-Ghana",
+ "regulation": [
+  1,
+  0
+ ],
+ "goals": [
+  1,
+  0
+ ],
+ "winner": "home",
+ "statRoot": "9WiFQMZeZMQX8YjPfNNXApNVejRpNa1qUiQjiUKHYYvC",
+ "seq": 1037,
+ "finalTs": 1783136183622,
+ "txSig": "NTeq3zGH1bMq89jBp5xHxCn357un3WU5D6qwvDCMLxNxhnirhn1cFxt9Rrk936JmcKsLpDRwDdWziZNJyy84YdY",
+ "solscan": "https://solscan.io/tx/NTeq3zGH1bMq89jBp5xHxCn357un3WU5D6qwvDCMLxNxhnirhn1cFxt9Rrk936JmcKsLpDRwDdWziZNJyy84YdY?cluster=devnet"
+}

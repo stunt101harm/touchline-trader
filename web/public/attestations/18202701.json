@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18202701,
+ "match": "Argentina-Egypt",
+ "regulation": [
+  3,
+  2
+ ],
+ "goals": [
+  3,
+  2
+ ],
+ "winner": "home",
+ "statRoot": "47ggeTgEiaEUJ3kWn73giC8vgHXvSU4J2WLH6EJ7oqJg",
+ "seq": 1045,
+ "finalTs": 1783448117169,
+ "txSig": "5LEzFeyLL7zp4hX9NZJv44y6kzmsLkh6eMdYHCuXdTc7qz3zt6FouWkcSAJUQhAMHwGjhomUeNHDGyFS5yuPA1fh",
+ "solscan": "https://solscan.io/tx/5LEzFeyLL7zp4hX9NZJv44y6kzmsLkh6eMdYHCuXdTc7qz3zt6FouWkcSAJUQhAMHwGjhomUeNHDGyFS5yuPA1fh?cluster=devnet"
+}

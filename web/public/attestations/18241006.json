@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18241006,
+ "match": "England-Argentina",
+ "regulation": [
+  1,
+  2
+ ],
+ "goals": [
+  1,
+  2
+ ],
+ "winner": "away",
+ "statRoot": "5rz214N7cjHSzGmXx238AgoGQokBjJPce6yJC2RaTetx",
+ "seq": 962,
+ "finalTs": 1784150064772,
+ "txSig": "2pgRGyXgJ6CGjUZ3fnBgtotqncMuDYmWBQYsR7GMBH37V5sEejG29sPsoP7U5cSz4c7SVoNwMZSDxM4TvCCPX79v",
+ "solscan": "https://solscan.io/tx/2pgRGyXgJ6CGjUZ3fnBgtotqncMuDYmWBQYsR7GMBH37V5sEejG29sPsoP7U5cSz4c7SVoNwMZSDxM4TvCCPX79v?cluster=devnet"
+}

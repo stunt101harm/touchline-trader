@@ -54,6 +54,40 @@ export default function App() {
   );
 }
 
+function FairModal({ onClose }: { onClose: () => void }) {
+  const [data, setData] = useState<any>(null);
+  useEffect(() => {
+    fetch('/attestations/index.json').then(r => r.json()).then(setData).catch(() => {});
+  }, []);
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal picker" onClick={e => e.stopPropagation()}>
+        <h2>⛓ Provably fair</h2>
+        <p className="muted">
+          Prices come from TxLINE consensus odds, purchased on Solana. Every settled market is anchored
+          on-chain with TxLINE's Merkle stat root — the leaderboard can't be rigged, and you can check.
+        </p>
+        {data && (
+          <>
+            <a className="picker-row attest-row" href={data.subscriptionSolscan} target="_blank" rel="noreferrer">
+              <span className="picker-label">Data feed</span>
+              <span className="picker-match">TxLINE subscription purchased on Solana</span>
+              <span className="picker-score">↗</span>
+            </a>
+            {data.attestations?.map((a: any) => (
+              <a key={a.fixtureId} className="picker-row attest-row" href={a.solscan} target="_blank" rel="noreferrer">
+                <span className="picker-label">settled</span>
+                <span className="picker-match">{a.match.replace('-', ' v ')}</span>
+                <span className="picker-score">{a.regulation?.[0]}–{a.regulation?.[1]} ↗</span>
+              </a>
+            ))}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: () => void }) {
   const chart = useRef<ChartHandle>(null);
   const clockRef = useRef<ReplayClock | null>(null);
@@ -70,6 +104,7 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [flash, setFlash] = useState<'up' | 'down' | null>(null);
   const [settled, setSettled] = useState(false);
+  const [fairOpen, setFairOpen] = useState(false);
   const [, forceUi] = useState(0); // portfolio changes
 
   const toast = useCallback((text: string, cls = '') => {
@@ -127,9 +162,16 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
 
     clockRef.current = rc;
     rc.speed = 10;
+    chart.current?.setStoryRange(rc.t0, rc.t1);
     rc.start();
     return () => rc.pause();
   }, [tape]);
+
+  const [attest, setAttest] = useState<any>(null);
+  useEffect(() => {
+    if (!settled) return;
+    fetch(`/attestations/${tape.fixtureId}.json`).then(r => r.ok ? r.json() : null).then(setAttest).catch(() => {});
+  }, [settled, tape.fixtureId]);
 
   const setSpeed = (s: number) => { setSpeedState(s); if (clockRef.current) clockRef.current.speed = s; };
   const togglePlay = () => {
@@ -145,6 +187,7 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
     const step = Math.max(1, Math.floor(upto.length / 500));
     for (let i = 0; i < upto.length; i += step) chart.current?.pushTick(upto[i]);
     for (const ev of tape.events.filter(e => e.t <= target)) chart.current?.addEventMarker(ev, tape.home, tape.away);
+    chart.current?.setStoryRange(rc.t0, rc.t1);
     rc.seek(f);
   };
 
@@ -235,11 +278,19 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
             <p>Market settled: <b>{tape.final.winner === 'draw' ? 'Draw' : names[tape.final.winner]}</b> pays 100¢ per share.</p>
             <div className={`settle-pnl ${pnl >= 0 ? 'up' : 'down'}`}>{pnl >= 0 ? '+' : ''}{fmtC(pnl)} coins</div>
             <p className="muted">Final balance: {fmtC(pf.cash)} of {STARTING_CASH} starting coins</p>
+            {attest && (
+              <a className="attest-link" href={attest.solscan} target="_blank" rel="noreferrer">
+                ⛓ Provably settled on Solana — verify ↗
+              </a>
+            )}
             <button className="btn-buy" onClick={onOpenPicker}>Trade another match</button>
           </div>
         </div>
       )}
-      <footer className="disclaimer">free to play · play coins · no real money</footer>
+      <footer className="disclaimer">
+        free to play · play coins · no real money · <button className="fair-link" onClick={() => setFairOpen(true)}>⛓ provably fair</button>
+      </footer>
+      {fairOpen && <FairModal onClose={() => setFairOpen(false)} />}
     </div>
   );
 }

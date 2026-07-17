@@ -103,3 +103,6 @@ header { display: flex; align-items: center; gap: 10px; padding: 12px 14px 8px; 
 .settle .btn-buy { margin-top: 8px; }
 
 .disclaimer { text-align: center; font-size: 10px; color: var(--muted); padding: 4px 0 max(6px, env(safe-area-inset-bottom)); }
+.fair-link { background: none; border: none; color: var(--muted); font-size: 10px; text-decoration: underline; cursor: pointer; padding: 0; }
+.attest-link { display: block; margin: 4px 0 10px; color: var(--gold); font-size: 12px; text-decoration: none; }
+.attest-row { text-decoration: none; color: var(--text); }

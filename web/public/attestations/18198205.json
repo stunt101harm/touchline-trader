@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18198205,
+ "match": "Portugal-Spain",
+ "regulation": [
+  0,
+  1
+ ],
+ "goals": [
+  0,
+  1
+ ],
+ "winner": "away",
+ "statRoot": "J2RKYAKjgjUcWkXkttnnyWGWJkA5vooBHSwMDSBCjCUp",
+ "seq": 992,
+ "finalTs": 1783372316885,
+ "txSig": "49XVz2GFwpq6po1yTyiN6Qdo6XwtTMgJeQAFpjjY6puPFd9tjRMn4HspNdUtGyHbtVarZLezPpDeMLrdssD3rioE",
+ "solscan": "https://solscan.io/tx/49XVz2GFwpq6po1yTyiN6Qdo6XwtTMgJeQAFpjjY6puPFd9tjRMn4HspNdUtGyHbtVarZLezPpDeMLrdssD3rioE?cluster=devnet"
+}

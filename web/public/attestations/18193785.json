@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18193785,
+ "match": "USA-Belgium",
+ "regulation": [
+  1,
+  4
+ ],
+ "goals": [
+  1,
+  4
+ ],
+ "winner": "away",
+ "statRoot": "7DUqa7mNZgTh2UHp5B2gWUuz7Q51gGukS6yGTLUzUagu",
+ "seq": 1123,
+ "finalTs": 1783389876876,
+ "txSig": "4NyncXex8JsjJYobEWnFYwq84hnfbbmmBzQo1yEqsJTAPyFtNtsyMU8uZc772ufLV4xYWH1fSHdb27bE4a7dn4ya",
+ "solscan": "https://solscan.io/tx/4NyncXex8JsjJYobEWnFYwq84hnfbbmmBzQo1yEqsJTAPyFtNtsyMU8uZc772ufLV4xYWH1fSHdb27bE4a7dn4ya?cluster=devnet"
+}

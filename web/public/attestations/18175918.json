@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18175918,
+ "match": "Argentina-Cape Verde",
+ "regulation": [
+  1,
+  1
+ ],
+ "goals": [
+  3,
+  2
+ ],
+ "winner": "draw",
+ "statRoot": "CJExo844RN9hY8dtB1Jd3jxRiCv4mZGNT9QTXMu6vKoq",
+ "seq": 1242,
+ "finalTs": 1783126189288,
+ "txSig": "2PaDzqgqx6tZZww6zhQmqpWkRvydzFPiDUPX4Zg7xZAHsJs8zvtgNZovYwgirSr7c46xbnctW9fWMG87cyFAQvU8",
+ "solscan": "https://solscan.io/tx/2PaDzqgqx6tZZww6zhQmqpWkRvydzFPiDUPX4Zg7xZAHsJs8zvtgNZovYwgirSr7c46xbnctW9fWMG87cyFAQvU8?cluster=devnet"
+}

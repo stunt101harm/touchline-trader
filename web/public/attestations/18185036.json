@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18185036,
+ "match": "Canada-Morocco",
+ "regulation": [
+  0,
+  3
+ ],
+ "goals": [
+  0,
+  3
+ ],
+ "winner": "away",
+ "statRoot": "CFsY6B9fi63qFrkKxbdxyh6jsNRLsP1sMmmDsTueBWLX",
+ "seq": 1121,
+ "finalTs": 1783192230603,
+ "txSig": "5fg6L6voKLmN64ufGbo7sQymXdP9ATMqS9gLDcU2RcSEUECwRgWFgj6MMZXXEaJWi6HWLJq7nFbRw56eRdXU84vD",
+ "solscan": "https://solscan.io/tx/5fg6L6voKLmN64ufGbo7sQymXdP9ATMqS9gLDcU2RcSEUECwRgWFgj6MMZXXEaJWi6HWLJq7nFbRw56eRdXU84vD?cluster=devnet"
+}

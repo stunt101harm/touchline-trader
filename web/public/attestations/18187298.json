@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18187298,
+ "match": "Brazil-Norway",
+ "regulation": [
+  1,
+  2
+ ],
+ "goals": [
+  1,
+  2
+ ],
+ "winner": "away",
+ "statRoot": "4QmnCV7GnhnAd4gxrXS7oSnb9wuaHVSAsUGKQtoXwMEv",
+ "seq": 1100,
+ "finalTs": 1783289390162,
+ "txSig": "4PiJfKYSCE29tLBjBZu1HcM2oDYRUmDnUs23kqPNYirNDHfuoMWY1XL9L44JK4d6tXYVFUZ8fEUrme2EzMKSGYXx",
+ "solscan": "https://solscan.io/tx/4PiJfKYSCE29tLBjBZu1HcM2oDYRUmDnUs23kqPNYirNDHfuoMWY1XL9L44JK4d6tXYVFUZ8fEUrme2EzMKSGYXx?cluster=devnet"
+}

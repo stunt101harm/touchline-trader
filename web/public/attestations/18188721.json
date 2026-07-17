@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18188721,
+ "match": "Paraguay-France",
+ "regulation": [
+  0,
+  1
+ ],
+ "goals": [
+  0,
+  1
+ ],
+ "winner": "away",
+ "statRoot": "3eywAYumVz4UKMSpyvzoa1WjE48uzn8hszDnmfscRkyw",
+ "seq": 964,
+ "finalTs": 1783206890273,
+ "txSig": "4zrcvZyn9bBnsG2gKy8LFEnfMzq2iHWVfYdAQRH62gqSUeEXStntTVg4MRsEZnv7kTkmZWuL5YCCY8bFbcsXhFc3",
+ "solscan": "https://solscan.io/tx/4zrcvZyn9bBnsG2gKy8LFEnfMzq2iHWVfYdAQRH62gqSUeEXStntTVg4MRsEZnv7kTkmZWuL5YCCY8bFbcsXhFc3?cluster=devnet"
+}

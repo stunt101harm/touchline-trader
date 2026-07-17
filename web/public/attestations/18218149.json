@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18218149,
+ "match": "Spain-Belgium",
+ "regulation": [
+  2,
+  1
+ ],
+ "goals": [
+  2,
+  1
+ ],
+ "winner": "home",
+ "statRoot": "5RQwxNpRB1RmHm4YvqCzTV1t1nQMU53eNLF6yU8ampzp",
+ "seq": 1087,
+ "finalTs": 1783717433523,
+ "txSig": "2RYma3VWQvagDZ92zw95EhsQ66wAUC7ehWtEwpgfbgKihfyg6KAF7kmcCoCH6JTciadD8rhpJoE4aSxy9AAcquhV",
+ "solscan": "https://solscan.io/tx/2RYma3VWQvagDZ92zw95EhsQ66wAUC7ehWtEwpgfbgKihfyg6KAF7kmcCoCH6JTciadD8rhpJoE4aSxy9AAcquhV?cluster=devnet"
+}

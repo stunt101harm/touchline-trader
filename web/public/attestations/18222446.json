@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18222446,
+ "match": "Argentina-Switzerland",
+ "regulation": [
+  1,
+  1
+ ],
+ "goals": [
+  3,
+  1
+ ],
+ "winner": "draw",
+ "statRoot": "3y557DjcPpxvi6cX7FkXt58ZUiPqM6Ca6BUyFCemUXLf",
+ "seq": 1306,
+ "finalTs": 1783828222499,
+ "txSig": "2a3qy89y4ehGEQcPR8FuqmUoH644DaoGx9H7WdExioHspLt3szFrp7wbgJThcouQHcB8BvMekFgMsaVpVMBp5zrP",
+ "solscan": "https://solscan.io/tx/2a3qy89y4ehGEQcPR8FuqmUoH644DaoGx9H7WdExioHspLt3szFrp7wbgJThcouQHcB8BvMekFgMsaVpVMBp5zrP?cluster=devnet"
+}

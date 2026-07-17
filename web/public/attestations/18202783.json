@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18202783,
+ "match": "Switzerland-Colombia",
+ "regulation": [
+  0,
+  0
+ ],
+ "goals": [
+  0,
+  0
+ ],
+ "winner": "draw",
+ "statRoot": "FgBoGK2uLnBo7qV4vc8etNi5sNhpBumv3j24XBMYmXTz",
+ "seq": 1352,
+ "finalTs": 1783464750688,
+ "txSig": "5Yt1gmq31zuYLSEwMf5KYo3NKsLYnUjm6E9SrwSVudiYRTSz47G5DwrhGHPUWMRmr2j8xYuVH4jcwGWFSK7ZqAGd",
+ "solscan": "https://solscan.io/tx/5Yt1gmq31zuYLSEwMf5KYo3NKsLYnUjm6E9SrwSVudiYRTSz47G5DwrhGHPUWMRmr2j8xYuVH4jcwGWFSK7ZqAGd?cluster=devnet"
+}

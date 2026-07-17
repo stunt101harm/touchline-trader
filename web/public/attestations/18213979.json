@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18213979,
+ "match": "Norway-England",
+ "regulation": [
+  1,
+  1
+ ],
+ "goals": [
+  1,
+  2
+ ],
+ "winner": "draw",
+ "statRoot": "5MWrmutbv3Zv97NJcsVobAubbynLVmMG7Pg1CeRhB4w",
+ "seq": 1184,
+ "finalTs": 1783813940264,
+ "txSig": "5MZRMxqSiHE3XbQRFAivpe6EAMWGuQfJ6dSCbLzhpCF9fN9iSqExHGkzTjENL4vn2cJTfmWrQ5mF4CHpg47mcB7K",
+ "solscan": "https://solscan.io/tx/5MZRMxqSiHE3XbQRFAivpe6EAMWGuQfJ6dSCbLzhpCF9fN9iSqExHGkzTjENL4vn2cJTfmWrQ5mF4CHpg47mcB7K?cluster=devnet"
+}

@@ -1,0 +1,295 @@
+{
+ "wallet": "BBsJcKJTNRzifGD1GSzNZRH2KonVZsGHFebQMnmQSh4F",
+ "subscriptionTx": "4k8Cb85zWRpq1S44r9DkohYJ5EVLYdDFeRHf9V1DHmUK5XKh4JmK94RBJNyB5tR6zGFkbK5avZU68xoXEp1Fb5gs",
+ "subscriptionSolscan": "https://solscan.io/tx/4k8Cb85zWRpq1S44r9DkohYJ5EVLYdDFeRHf9V1DHmUK5XKh4JmK94RBJNyB5tR6zGFkbK5avZU68xoXEp1Fb5gs?cluster=devnet",
+ "attestations": [
+  {
+   "fixtureId": 18241006,
+   "match": "England-Argentina",
+   "regulation": [
+    1,
+    2
+   ],
+   "goals": [
+    1,
+    2
+   ],
+   "winner": "away",
+   "statRoot": "5rz214N7cjHSzGmXx238AgoGQokBjJPce6yJC2RaTetx",
+   "seq": 962,
+   "finalTs": 1784150064772,
+   "txSig": "2pgRGyXgJ6CGjUZ3fnBgtotqncMuDYmWBQYsR7GMBH37V5sEejG29sPsoP7U5cSz4c7SVoNwMZSDxM4TvCCPX79v",
+   "solscan": "https://solscan.io/tx/2pgRGyXgJ6CGjUZ3fnBgtotqncMuDYmWBQYsR7GMBH37V5sEejG29sPsoP7U5cSz4c7SVoNwMZSDxM4TvCCPX79v?cluster=devnet"
+  },
+  {
+   "fixtureId": 18237038,
+   "match": "France-Spain",
+   "regulation": [
+    0,
+    2
+   ],
+   "goals": [
+    0,
+    2
+   ],
+   "winner": "away",
+   "statRoot": "HyS1YycjsGwokXeMMmm7w7VsymoiPRkr3Ri7M8Uky7De",
+   "seq": 1026,
+   "finalTs": 1784063054751,
+   "txSig": "2uMqyawp68UzVq47ejeHurKAV7XHa9mgzoZ857oZHf8FtLX6pfq3FRNGcRAcDBBGsLeb3A3oGwU1AQpVzkfsCYbW",
+   "solscan": "https://solscan.io/tx/2uMqyawp68UzVq47ejeHurKAV7XHa9mgzoZ857oZHf8FtLX6pfq3FRNGcRAcDBBGsLeb3A3oGwU1AQpVzkfsCYbW?cluster=devnet"
+  },
+  {
+   "fixtureId": 18222446,
+   "match": "Argentina-Switzerland",
+   "regulation": [
+    1,
+    1
+   ],
+   "goals": [
+    3,
+    1
+   ],
+   "winner": "draw",
+   "statRoot": "3y557DjcPpxvi6cX7FkXt58ZUiPqM6Ca6BUyFCemUXLf",
+   "seq": 1306,
+   "finalTs": 1783828222499,
+   "txSig": "2a3qy89y4ehGEQcPR8FuqmUoH644DaoGx9H7WdExioHspLt3szFrp7wbgJThcouQHcB8BvMekFgMsaVpVMBp5zrP",
+   "solscan": "https://solscan.io/tx/2a3qy89y4ehGEQcPR8FuqmUoH644DaoGx9H7WdExioHspLt3szFrp7wbgJThcouQHcB8BvMekFgMsaVpVMBp5zrP?cluster=devnet"
+  },
+  {
+   "fixtureId": 18213979,
+   "match": "Norway-England",
+   "regulation": [
+    1,
+    1
+   ],
+   "goals": [
+    1,
+    2
+   ],
+   "winner": "draw",
+   "statRoot": "5MWrmutbv3Zv97NJcsVobAubbynLVmMG7Pg1CeRhB4w",
+   "seq": 1184,
+   "finalTs": 1783813940264,
+   "txSig": "5MZRMxqSiHE3XbQRFAivpe6EAMWGuQfJ6dSCbLzhpCF9fN9iSqExHGkzTjENL4vn2cJTfmWrQ5mF4CHpg47mcB7K",
+   "solscan": "https://solscan.io/tx/5MZRMxqSiHE3XbQRFAivpe6EAMWGuQfJ6dSCbLzhpCF9fN9iSqExHGkzTjENL4vn2cJTfmWrQ5mF4CHpg47mcB7K?cluster=devnet"
+  },
+  {
+   "fixtureId": 18218149,
+   "match": "Spain-Belgium",
+   "regulation": [
+    2,
+    1
+   ],
+   "goals": [
+    2,
+    1
+   ],
+   "winner": "home",
+   "statRoot": "5RQwxNpRB1RmHm4YvqCzTV1t1nQMU53eNLF6yU8ampzp",
+   "seq": 1087,
+   "finalTs": 1783717433523,
+   "txSig": "2RYma3VWQvagDZ92zw95EhsQ66wAUC7ehWtEwpgfbgKihfyg6KAF7kmcCoCH6JTciadD8rhpJoE4aSxy9AAcquhV",
+   "solscan": "https://solscan.io/tx/2RYma3VWQvagDZ92zw95EhsQ66wAUC7ehWtEwpgfbgKihfyg6KAF7kmcCoCH6JTciadD8rhpJoE4aSxy9AAcquhV?cluster=devnet"
+  },
+  {
+   "fixtureId": 18209181,
+   "match": "France-Morocco",
+   "regulation": [
+    2,
+    0
+   ],
+   "goals": [
+    2,
+    0
+   ],
+   "winner": "home",
+   "statRoot": "65cErAgevAMejTRvgXB6fLxQnHMdF94QPvhs8ty2Uq8v",
+   "seq": 1114,
+   "finalTs": 1783634788478,
+   "txSig": "2H5PJmT6eGXVZXj31hp4KQiNBnv63JHsuW1qULcbf9hFSD2PVXbjJSDx54kF9LjvMXPLjqcjG7FHCwGwxyY6p9iF",
+   "solscan": "https://solscan.io/tx/2H5PJmT6eGXVZXj31hp4KQiNBnv63JHsuW1qULcbf9hFSD2PVXbjJSDx54kF9LjvMXPLjqcjG7FHCwGwxyY6p9iF?cluster=devnet"
+  },
+  {
+   "fixtureId": 18202783,
+   "match": "Switzerland-Colombia",
+   "regulation": [
+    0,
+    0
+   ],
+   "goals": [
+    0,
+    0
+   ],
+   "winner": "draw",
+   "statRoot": "FgBoGK2uLnBo7qV4vc8etNi5sNhpBumv3j24XBMYmXTz",
+   "seq": 1352,
+   "finalTs": 1783464750688,
+   "txSig": "5Yt1gmq31zuYLSEwMf5KYo3NKsLYnUjm6E9SrwSVudiYRTSz47G5DwrhGHPUWMRmr2j8xYuVH4jcwGWFSK7ZqAGd",
+   "solscan": "https://solscan.io/tx/5Yt1gmq31zuYLSEwMf5KYo3NKsLYnUjm6E9SrwSVudiYRTSz47G5DwrhGHPUWMRmr2j8xYuVH4jcwGWFSK7ZqAGd?cluster=devnet"
+  },
+  {
+   "fixtureId": 18202701,
+   "match": "Argentina-Egypt",
+   "regulation": [
+    3,
+    2
+   ],
+   "goals": [
+    3,
+    2
+   ],
+   "winner": "home",
+   "statRoot": "47ggeTgEiaEUJ3kWn73giC8vgHXvSU4J2WLH6EJ7oqJg",
+   "seq": 1045,
+   "finalTs": 1783448117169,
+   "txSig": "5LEzFeyLL7zp4hX9NZJv44y6kzmsLkh6eMdYHCuXdTc7qz3zt6FouWkcSAJUQhAMHwGjhomUeNHDGyFS5yuPA1fh",
+   "solscan": "https://solscan.io/tx/5LEzFeyLL7zp4hX9NZJv44y6kzmsLkh6eMdYHCuXdTc7qz3zt6FouWkcSAJUQhAMHwGjhomUeNHDGyFS5yuPA1fh?cluster=devnet"
+  },
+  {
+   "fixtureId": 18193785,
+   "match": "USA-Belgium",
+   "regulation": [
+    1,
+    4
+   ],
+   "goals": [
+    1,
+    4
+   ],
+   "winner": "away",
+   "statRoot": "7DUqa7mNZgTh2UHp5B2gWUuz7Q51gGukS6yGTLUzUagu",
+   "seq": 1123,
+   "finalTs": 1783389876876,
+   "txSig": "4NyncXex8JsjJYobEWnFYwq84hnfbbmmBzQo1yEqsJTAPyFtNtsyMU8uZc772ufLV4xYWH1fSHdb27bE4a7dn4ya",
+   "solscan": "https://solscan.io/tx/4NyncXex8JsjJYobEWnFYwq84hnfbbmmBzQo1yEqsJTAPyFtNtsyMU8uZc772ufLV4xYWH1fSHdb27bE4a7dn4ya?cluster=devnet"
+  },
+  {
+   "fixtureId": 18198205,
+   "match": "Portugal-Spain",
+   "regulation": [
+    0,
+    1
+   ],
+   "goals": [
+    0,
+    1
+   ],
+   "winner": "away",
+   "statRoot": "J2RKYAKjgjUcWkXkttnnyWGWJkA5vooBHSwMDSBCjCUp",
+   "seq": 992,
+   "finalTs": 1783372316885,
+   "txSig": "49XVz2GFwpq6po1yTyiN6Qdo6XwtTMgJeQAFpjjY6puPFd9tjRMn4HspNdUtGyHbtVarZLezPpDeMLrdssD3rioE",
+   "solscan": "https://solscan.io/tx/49XVz2GFwpq6po1yTyiN6Qdo6XwtTMgJeQAFpjjY6puPFd9tjRMn4HspNdUtGyHbtVarZLezPpDeMLrdssD3rioE?cluster=devnet"
+  },
+  {
+   "fixtureId": 18192996,
+   "match": "Mexico-England",
+   "regulation": [
+    2,
+    3
+   ],
+   "goals": [
+    2,
+    3
+   ],
+   "winner": "away",
+   "statRoot": "FF4TsjCYcBheRUfEPGcVLVgAbzkFMhMpV4UcH9eV5dBv",
+   "seq": 1046,
+   "finalTs": 1783307714951,
+   "txSig": "tcVuink4X5dEdwPXTjxYDLDdVzirBBhGvecroZy2a39SLtzma18hhHLDdysQJYMGwNzk1EjfapTDfWHFcjT6u6u",
+   "solscan": "https://solscan.io/tx/tcVuink4X5dEdwPXTjxYDLDdVzirBBhGvecroZy2a39SLtzma18hhHLDdysQJYMGwNzk1EjfapTDfWHFcjT6u6u?cluster=devnet"
+  },
+  {
+   "fixtureId": 18187298,
+   "match": "Brazil-Norway",
+   "regulation": [
+    1,
+    2
+   ],
+   "goals": [
+    1,
+    2
+   ],
+   "winner": "away",
+   "statRoot": "4QmnCV7GnhnAd4gxrXS7oSnb9wuaHVSAsUGKQtoXwMEv",
+   "seq": 1100,
+   "finalTs": 1783289390162,
+   "txSig": "4PiJfKYSCE29tLBjBZu1HcM2oDYRUmDnUs23kqPNYirNDHfuoMWY1XL9L44JK4d6tXYVFUZ8fEUrme2EzMKSGYXx",
+   "solscan": "https://solscan.io/tx/4PiJfKYSCE29tLBjBZu1HcM2oDYRUmDnUs23kqPNYirNDHfuoMWY1XL9L44JK4d6tXYVFUZ8fEUrme2EzMKSGYXx?cluster=devnet"
+  },
+  {
+   "fixtureId": 18188721,
+   "match": "Paraguay-France",
+   "regulation": [
+    0,
+    1
+   ],
+   "goals": [
+    0,
+    1
+   ],
+   "winner": "away",
+   "statRoot": "3eywAYumVz4UKMSpyvzoa1WjE48uzn8hszDnmfscRkyw",
+   "seq": 964,
+   "finalTs": 1783206890273,
+   "txSig": "4zrcvZyn9bBnsG2gKy8LFEnfMzq2iHWVfYdAQRH62gqSUeEXStntTVg4MRsEZnv7kTkmZWuL5YCCY8bFbcsXhFc3",
+   "solscan": "https://solscan.io/tx/4zrcvZyn9bBnsG2gKy8LFEnfMzq2iHWVfYdAQRH62gqSUeEXStntTVg4MRsEZnv7kTkmZWuL5YCCY8bFbcsXhFc3?cluster=devnet"
+  },
+  {
+   "fixtureId": 18185036,
+   "match": "Canada-Morocco",
+   "regulation": [
+    0,
+    3
+   ],
+   "goals": [
+    0,
+    3
+   ],
+   "winner": "away",
+   "statRoot": "CFsY6B9fi63qFrkKxbdxyh6jsNRLsP1sMmmDsTueBWLX",
+   "seq": 1121,
+   "finalTs": 1783192230603,
+   "txSig": "5fg6L6voKLmN64ufGbo7sQymXdP9ATMqS9gLDcU2RcSEUECwRgWFgj6MMZXXEaJWi6HWLJq7nFbRw56eRdXU84vD",
+   "solscan": "https://solscan.io/tx/5fg6L6voKLmN64ufGbo7sQymXdP9ATMqS9gLDcU2RcSEUECwRgWFgj6MMZXXEaJWi6HWLJq7nFbRw56eRdXU84vD?cluster=devnet"
+  },
+  {
+   "fixtureId": 18179549,
+   "match": "Colombia-Ghana",
+   "regulation": [
+    1,
+    0
+   ],
+   "goals": [
+    1,
+    0
+   ],
+   "winner": "home",
+   "statRoot": "9WiFQMZeZMQX8YjPfNNXApNVejRpNa1qUiQjiUKHYYvC",
+   "seq": 1037,
+   "finalTs": 1783136183622,
+   "txSig": "NTeq3zGH1bMq89jBp5xHxCn357un3WU5D6qwvDCMLxNxhnirhn1cFxt9Rrk936JmcKsLpDRwDdWziZNJyy84YdY",
+   "solscan": "https://solscan.io/tx/NTeq3zGH1bMq89jBp5xHxCn357un3WU5D6qwvDCMLxNxhnirhn1cFxt9Rrk936JmcKsLpDRwDdWziZNJyy84YdY?cluster=devnet"
+  },
+  {
+   "fixtureId": 18175918,
+   "match": "Argentina-Cape Verde",
+   "regulation": [
+    1,
+    1
+   ],
+   "goals": [
+    3,
+    2
+   ],
+   "winner": "draw",
+   "statRoot": "CJExo844RN9hY8dtB1Jd3jxRiCv4mZGNT9QTXMu6vKoq",
+   "seq": 1242,
+   "finalTs": 1783126189288,
+   "txSig": "2PaDzqgqx6tZZww6zhQmqpWkRvydzFPiDUPX4Zg7xZAHsJs8zvtgNZovYwgirSr7c46xbnctW9fWMG87cyFAQvU8",
+   "solscan": "https://solscan.io/tx/2PaDzqgqx6tZZww6zhQmqpWkRvydzFPiDUPX4Zg7xZAHsJs8zvtgNZovYwgirSr7c46xbnctW9fWMG87cyFAQvU8?cluster=devnet"
+  }
+ ]
+}

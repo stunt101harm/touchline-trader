@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18209181,
+ "match": "France-Morocco",
+ "regulation": [
+  2,
+  0
+ ],
+ "goals": [
+  2,
+  0
+ ],
+ "winner": "home",
+ "statRoot": "65cErAgevAMejTRvgXB6fLxQnHMdF94QPvhs8ty2Uq8v",
+ "seq": 1114,
+ "finalTs": 1783634788478,
+ "txSig": "2H5PJmT6eGXVZXj31hp4KQiNBnv63JHsuW1qULcbf9hFSD2PVXbjJSDx54kF9LjvMXPLjqcjG7FHCwGwxyY6p9iF",
+ "solscan": "https://solscan.io/tx/2H5PJmT6eGXVZXj31hp4KQiNBnv63JHsuW1qULcbf9hFSD2PVXbjJSDx54kF9LjvMXPLjqcjG7FHCwGwxyY6p9iF?cluster=devnet"
+}

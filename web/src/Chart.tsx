@@ -8,6 +8,8 @@ import type { MatchEvent, Tick } from '../shared/types';
 export interface ChartHandle {
   pushTick(tick: Tick): void;
   addEventMarker(ev: MatchEvent, homeName: string, awayName: string): void;
+  /** Pin the visible range to the full match story so the whole arc stays on screen. */
+  setStoryRange(t0Ms: number, t1Ms: number): void;
   reset(): void;
 }
 
@@ -19,6 +21,8 @@ export const MarketChart = forwardRef<ChartHandle, { focus: 'home' | 'draw' | 'a
   const series = useRef<Record<'home' | 'draw' | 'away', ISeriesApi<'Line'> | null>>({ home: null, draw: null, away: null });
   const markers = useRef<{ time: UTCTimestamp; position: 'aboveBar'; color: string; shape: 'circle'; text: string }[]>([]);
   const lastSec = useRef<number>(0);
+  const pendingRange = useRef<{ from: UTCTimestamp; to: UTCTimestamp } | null>(null);
+  const rangeApplied = useRef(false);
 
   useEffect(() => {
     if (!div.current) return;
@@ -55,28 +59,41 @@ export const MarketChart = forwardRef<ChartHandle, { focus: 'home' | 'draw' | 'a
   useImperativeHandle(ref, () => ({
     pushTick(tick: Tick) {
       const sec = Math.floor(tick.t / 1000) as UTCTimestamp;
-      const method = sec === lastSec.current ? 'update' : 'update'; // same-second updates overwrite
       lastSec.current = sec;
-      series.current.home?.[method]({ time: sec, value: tick.p[0] });
-      series.current.draw?.[method]({ time: sec, value: tick.p[1] });
-      series.current.away?.[method]({ time: sec, value: tick.p[2] });
+      series.current.home?.update({ time: sec, value: tick.p[0] });
+      series.current.draw?.update({ time: sec, value: tick.p[1] });
+      series.current.away?.update({ time: sec, value: tick.p[2] });
+      if (!rangeApplied.current && pendingRange.current) {
+        try { chart.current?.timeScale().setVisibleRange(pendingRange.current); rangeApplied.current = true; } catch { /* not ready yet */ }
+      }
     },
     addEventMarker(ev: MatchEvent, homeName: string, awayName: string) {
+      // Only high-drama events get chart markers — yellows/VAR/subs stay in the toast feed.
       const icons: Partial<Record<MatchEvent['kind'], string>> = {
-        goal: '⚽', yellow_card: '🟨', red_card: '🟥', var: '📺', penalty: '⚠️',
-        kickoff: '▶', halftime: 'HT', fulltime: 'FT',
+        goal: '⚽', red_card: '🟥', halftime: 'HT', fulltime: 'FT',
       };
       const icon = icons[ev.kind];
       if (!icon) return;
-      const team = ev.team === 1 ? homeName : ev.team === 2 ? awayName : '';
+      const team = ev.kind === 'goal' ? (ev.team === 1 ? homeName : ev.team === 2 ? awayName : '') : '';
       markers.current.push({
         time: Math.floor(ev.t / 1000) as UTCTimestamp,
         position: 'aboveBar',
-        color: ev.kind === 'goal' ? '#ffd75e' : '#8b93a3',
+        color: ev.kind === 'goal' ? '#ffd75e' : ev.kind === 'red_card' ? '#ff5c5c' : '#5c6470',
         shape: 'circle',
         text: `${icon}${team ? ' ' + team : ''}`,
       });
       series.current.home?.setMarkers(markers.current as any);
+    },
+    setStoryRange(t0Ms: number, t1Ms: number) {
+      pendingRange.current = {
+        from: Math.floor(t0Ms / 1000) as UTCTimestamp,
+        to: Math.ceil(t1Ms / 1000) as UTCTimestamp,
+      };
+      rangeApplied.current = false;
+      try {
+        chart.current?.timeScale().setVisibleRange(pendingRange.current);
+        rangeApplied.current = true;
+      } catch { /* applied on first tick instead */ }
     },
     reset() {
       markers.current = [];
