@@ -2,11 +2,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { DangerSpan, MatchEvent, Outcome, TapeBundle, TapeManifestEntry, Tick } from '../shared/types';
 import { OUTCOMES } from '../shared/types';
 import { buy, sell, settle, equity, newPortfolio, tickAt, type Portfolio, STARTING_CASH } from '../shared/engine';
-import { ReplayClock } from './replay';
+import { ReplayClock, tapeBounds } from './replay';
 import { MarketChart, type ChartHandle } from './Chart';
 import { BotEngine } from './bots';
 import LiveSession from './LiveSession';
 import type { LiveMatch } from './live';
+import { confetti } from './confetti';
+import { renderShareCard, shareCard } from './share';
 
 const NICKS = ['Maverick', 'Tifosi', 'Gaffer', 'Poacher', 'Regista', 'Libero', 'Trequartista', 'Enganche'];
 function myName(): string {
@@ -30,12 +32,15 @@ export default function App() {
   const [tape, setTape] = useState<TapeBundle | null>(null);
   const [liveMatch, setLiveMatch] = useState<LiveMatch | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [introOpen, setIntroOpen] = useState(() => localStorage.getItem('tt-seen') !== '1');
   const nick = useMemo(myName, []);
+  const params = useMemo(() => new URLSearchParams(location.search), []);
 
   useEffect(() => {
     fetch('/tapes/index.json').then(r => r.json() as Promise<TapeManifestEntry[]>).then((m) => {
       setManifest(m);
-      const featured = m.find(e => e.featured) ?? m[0];
+      const wanted = Number(params.get('match'));
+      const featured = m.find(e => e.fixtureId === wanted) ?? m.find(e => e.featured) ?? m[0];
       if (featured) loadTape(featured.fixtureId);
     }).catch(() => {});
     // best-effort: live matches from the API (absent/failed = replay-only, judge-proof)
@@ -52,13 +57,33 @@ export default function App() {
   };
   const goLive = (m: LiveMatch) => { setTape(null); setLiveMatch(m); setPickerOpen(false); };
 
+  const closeIntro = () => { localStorage.setItem('tt-seen', '1'); setIntroOpen(false); };
+
   return (
     <div className="app">
       {liveMatch
         ? <LiveSession key={liveMatch.fixture_id} match={liveMatch} nick={nick} onOpenPicker={() => setPickerOpen(true)} />
         : tape
-          ? <MatchSession key={tape.fixtureId} tape={tape} onOpenPicker={() => setPickerOpen(true)} />
+          ? <MatchSession key={tape.fixtureId} tape={tape} onOpenPicker={() => setPickerOpen(true)}
+              onHelp={() => setIntroOpen(true)}
+              initialSpeed={Number(params.get('speed')) || undefined}
+              initialSeek={params.get('t') != null ? Number(params.get('t')) : undefined} />
           : <div className="loading">loading the market…</div>}
+      {introOpen && (
+        <div className="intro-backdrop" onClick={closeIntro}>
+          <div className="intro" onClick={e => e.stopPropagation()}>
+            <div className="intro-logo">⚽📈</div>
+            <h1>Trade the match like a stock</h1>
+            <ul>
+              <li><b>Prices are live win odds</b> from the real betting market — 35¢ means a 35% chance.</li>
+              <li><b>BUY the outcome you believe in.</b> Goals send prices soaring or crashing in seconds.</li>
+              <li><b>SELL high to lock profit</b> — or hold to full time: the winner pays 100¢, the rest pay 0.</li>
+            </ul>
+            <button className="btn-buy intro-go" onClick={closeIntro}>Start trading — you have 1,000 coins</button>
+            <p className="muted">free to play · no real money · provably fair on Solana</p>
+          </div>
+        </div>
+      )}
       {pickerOpen && (
         <div className="modal-backdrop" onClick={() => setPickerOpen(false)}>
           <div className="modal picker" onClick={e => e.stopPropagation()}>
@@ -124,12 +149,16 @@ function FairModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: () => void }) {
+function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }: {
+  tape: TapeBundle; onOpenPicker: () => void; onHelp?: () => void;
+  initialSpeed?: number; initialSeek?: number;
+}) {
   const chart = useRef<ChartHandle>(null);
   const clockRef = useRef<ReplayClock | null>(null);
   const pfRef = useRef<Portfolio>(newPortfolio());
   const botsRef = useRef<BotEngine>(new BotEngine());
   const nick = useMemo(myName, []);
+  const bounds = useMemo(() => tapeBounds(tape), [tape]);
 
   const [prices, setPrices] = useState<[number, number, number] | null>(null);
   const [score, setScore] = useState<[number, number]>([0, 0]);
@@ -143,8 +172,13 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
   const [flash, setFlash] = useState<'up' | 'down' | null>(null);
   const [settled, setSettled] = useState(false);
   const [fairOpen, setFairOpen] = useState(false);
-  const [payOpen, setPayOpen] = useState(false);
+  const [payOpen, setPayOpen] = useState<number | null>(null); // requested speed, or null
   const [pro, setPro] = useState(() => localStorage.getItem('tt-pro') === '1');
+  const [shake, setShake] = useState(false);
+  const [goalBurst, setGoalBurst] = useState<string | null>(null);
+  const [deltas, setDeltas] = useState<{ id: number; v: number }[]>([]);
+  const [hasTraded, setHasTraded] = useState(() => localStorage.getItem('tt-traded') === '1');
+  const [world, setWorld] = useState<any[] | null>(null);
   const [, forceUi] = useState(0); // portfolio changes
 
   const toast = useCallback((text: string, cls = '') => {
@@ -175,6 +209,11 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
       switch (ev.kind) {
         case 'goal': {
           toast(`⚽ GOAL — ${name}!`, 'toast-goal');
+          setGoalBurst(name || 'GOAL');
+          setShake(true);
+          setTimeout(() => setShake(false), 500);
+          setTimeout(() => setGoalBurst(null), 1100);
+          try { (navigator as any).vibrate?.([80, 40, 120]); } catch { /* unsupported */ }
           // flash for/against the user's actual holdings: green if the scoring side is
           // your biggest position, red if you're holding against it, neutral gold otherwise
           const scored: Outcome | null = ev.team === 1 ? 'home' : ev.team === 2 ? 'away' : null;
@@ -183,6 +222,16 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
           if (held && scored) setFlash(held === scored ? 'up' : 'down');
           else if (held === 'draw') setFlash('down');
           setTimeout(() => setFlash(null), 1400);
+          // P&L delta pop once the market has repriced the goal
+          const eq0 = equity(pf, rc.currentTick());
+          setTimeout(() => {
+            const d = equity(pf, rc.currentTick()) - eq0;
+            if (Math.abs(d) >= 3) {
+              const id = Date.now() + Math.random();
+              setDeltas(ds => [...ds.slice(-2), { id, v: d }]);
+              setTimeout(() => setDeltas(ds => ds.filter(x => x.id !== id)), 1500);
+            }
+          }, 1200);
           break;
         }
         case 'red_card': toast(`🟥 RED CARD — ${name}`, 'toast-red'); break;
@@ -196,10 +245,14 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
             settle(pf, tape.final.winner);
             bots.settleAll(tape.final.winner);
             setSettled(true);
+            if (pf.cash > STARTING_CASH) confetti();
             fetch('/api/score', {
               method: 'POST', headers: { 'content-type': 'application/json' },
               body: JSON.stringify({ fixtureId: tape.fixtureId, nick, mode: 'replay', pnl: pf.cash - STARTING_CASH, equity: pf.cash }),
-            }).catch(() => {});
+            }).then(() => fetch(`/api/score/${tape.fixtureId}`))
+              .then(r => r.ok ? r.json() : null)
+              .then(rows => Array.isArray(rows) && rows.length ? setWorld(rows) : null)
+              .catch(() => {});
           }
           break;
         }
@@ -208,8 +261,11 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
     }
 
     clockRef.current = rc;
-    rc.speed = 10;
+    const spd = initialSpeed && SPEEDS.includes(initialSpeed) ? initialSpeed : 10;
+    rc.speed = spd;
+    setSpeedState(spd);
     chart.current?.setStoryRange(rc.t0, rc.t1);
+    if (initialSeek != null && initialSeek > 0 && initialSeek < 1) rc.seek(initialSeek);
     rc.start();
     return () => rc.pause();
   }, [tape]);
@@ -223,19 +279,32 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
   const setSpeed = (s: number) => { setSpeedState(s); if (clockRef.current) clockRef.current.speed = s; };
   const togglePlay = () => {
     const rc = clockRef.current; if (!rc) return;
-    if (rc.isRunning) { rc.pause(); setRunning(false); } else { rc.start(); setRunning(true); }
+    if (rc.isRunning) { rc.pause(); setRunning(false); return; }
+    // at the end of the tape, play = watch it again from kickoff
+    if (rc.now >= rc.t1 - 1000) seek(0);
+    rc.start(); setRunning(true);
   };
   const seek = (f: number) => {
     const rc = clockRef.current; if (!rc) return;
+    const wasRunning = rc.isRunning;
+    rc.pause(); // stop event delivery while we rebuild — prevents duplicate markers
     chart.current?.reset();
-    // rebuild chart up to seek point (downsampled)
-    const target = rc.t0 + f * (rc.t1 - rc.t0);
+    const target = rc.t0 + Math.min(0.995, f) * (rc.t1 - rc.t0);
     const upto = tape.ticks.filter(t => t.t <= target);
     const step = Math.max(1, Math.floor(upto.length / 500));
     for (let i = 0; i < upto.length; i += step) chart.current?.pushTick(upto[i]);
-    for (const ev of tape.events.filter(e => e.t <= target)) chart.current?.addEventMarker(ev, tape.home, tape.away);
+    const played = tape.events.filter(e => e.t <= target);
+    for (const ev of played) chart.current?.addEventMarker(ev, tape.home, tape.away);
+    // sync header state to the scrub position — score/clock must never lag the chart
+    const lastScore = [...played].reverse().find(e => e.score)?.score;
+    setScore(lastScore ?? [0, 0]);
+    const lastClock = [...played].reverse().find(e => e.clockSec != null)?.clockSec;
+    setClockSec(lastClock ?? null);
+    const lastDanger = [...tape.danger.filter(d => d.t <= target)].pop();
+    setDanger(lastDanger && lastDanger.state !== 'safe' ? lastDanger : null);
     chart.current?.setStoryRange(rc.t0, rc.t1);
     rc.seek(f);
+    if (wasRunning && !settled) { rc.start(); setRunning(true); }
   };
 
   const doBuy = (o: Outcome) => {
@@ -244,7 +313,10 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
     const price = tick.p[OUTCOMES.indexOf(o)];
     const r = buy(pfRef.current, o, Math.min(100, pfRef.current.cash), price, rc.now);
     if (typeof r === 'string') toast(r, 'toast-err');
-    else toast(`Bought ${o === 'home' ? tape.home : o === 'away' ? tape.away : 'Draw'} @ ${fmtP(price)}`, 'toast-fill');
+    else {
+      toast(`Bought ${o === 'home' ? tape.home : o === 'away' ? tape.away : 'Draw'} @ ${fmtP(price)}`, 'toast-fill');
+      if (!hasTraded) { setHasTraded(true); localStorage.setItem('tt-traded', '1'); }
+    }
     forceUi(x => x + 1);
   };
   const doSell = (o: Outcome) => {
@@ -265,18 +337,23 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
   const matchClock = clockSec != null ? `${Math.floor(clockSec / 60)}'` : '';
 
   return (
-    <div className={`session ${flash ? `flash-${flash}` : ''} ${danger ? `danger-${danger.state}` : ''}`}>
+    <div className={`session ${flash ? `flash-${flash}` : ''} ${danger ? `danger-${danger.state}` : ''} ${shake ? 'shake' : ''}`}>
       <header>
         <button className="btn-ghost" onClick={onOpenPicker}>⏪</button>
         <div className="title">
           <div className="match">{tape.home} <span className="score">{score[0]}–{score[1]}</span> {tape.away}</div>
           <div className="sub">{tape.meta.label ?? 'World Cup'} · {matchClock} {danger && danger.team !== 0 ? `· 🔥 ${danger.team === 1 ? tape.home : tape.away} ${danger.state.replace('_', ' ')}` : ''}</div>
         </div>
+        {onHelp && <button className="btn-ghost help-pill" onClick={onHelp}>?</button>}
         <div className="wallet">
           <div className={`pnl ${pnl >= 0 ? 'up' : 'down'}`}>{pnl >= 0 ? '+' : ''}{fmtC(pnl)}</div>
           <div className="cash">{fmtC(eq)} coins</div>
         </div>
       </header>
+      {goalBurst && <div className="goal-burst"><span>⚽ GOAL</span><em>{goalBurst}</em></div>}
+      <div className="deltas">
+        {deltas.map(d => <div key={d.id} className={`delta ${d.v >= 0 ? 'up' : 'down'}`}>{d.v >= 0 ? '+' : ''}{fmtC(d.v)}</div>)}
+      </div>
 
       <MarketChart ref={chart} focus={focus} />
 
@@ -288,12 +365,12 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
             <div key={o} className={`outcome ${focus === o ? 'focused' : ''} oc-${o}`} onClick={() => setFocus(o)}>
               <div className="oc-name">{names[o]}</div>
               <div className="oc-price">{price != null ? fmtP(price) : '—'}</div>
-              <button className="btn-buy" disabled={settled} onClick={(e) => { e.stopPropagation(); doBuy(o); }}>
+              <button className={`btn-buy ${!hasTraded && o === 'home' ? 'pulse' : ''}`} disabled={settled} onClick={(e) => { e.stopPropagation(); doBuy(o); }}>
                 BUY 100
               </button>
               {pos.shares > 0 && price != null && (
-                <div className="oc-pos">
-                  {pos.shares.toFixed(1)} sh · {(pos.shares * price - pos.cost) >= 0 ? '+' : ''}{fmtC(pos.shares * price - pos.cost)}
+                <div className="oc-pos" title={`${pos.shares.toFixed(2)} shares — each pays 100 coins if this wins`}>
+                  Pays {fmtC(pos.shares * 100)} · <span className={(pos.shares * price - pos.cost) >= 0 ? 'up' : 'down'}>{(pos.shares * price - pos.cost) >= 0 ? '+' : ''}{fmtC(pos.shares * price - pos.cost)}</span>
                   <button className="btn-sell" disabled={settled} onClick={(e) => { e.stopPropagation(); doSell(o); }}>SELL</button>
                 </div>
               )}
@@ -313,14 +390,24 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
 
       <div className="controls">
         <button className="btn-ghost" onClick={togglePlay}>{running ? '⏸' : '▶'}</button>
-        <input type="range" min={0} max={1000} value={Math.round(progress * 1000)}
-          onChange={e => seek(Number(e.currentTarget.value) / 1000)} />
+        <div className="scrub-wrap">
+          <input type="range" min={0} max={1000} value={Math.round(progress * 1000)}
+            onChange={e => seek(Number(e.currentTarget.value) / 1000)} />
+          <div className="scrub-dots">
+            {tape.events.filter(e => e.kind === 'goal' || e.kind === 'red_card' || e.kind === 'halftime').map((e, i) => (
+              <span key={i}
+                className={`dot dot-${e.kind} ${e.team === 1 ? 'team-home' : e.team === 2 ? 'team-away' : ''}`}
+                style={{ left: `${(((e.t - bounds.t0) / (bounds.t1 - bounds.t0)) * 100).toFixed(2)}%` }}
+                title={e.kind === 'goal' ? `⚽ ${e.team === 1 ? tape.home : tape.away}` : e.kind === 'red_card' ? '🟥' : 'HT'} />
+            ))}
+          </div>
+        </div>
         <div className="speeds">
           {SPEEDS.map(s => {
             const gated = s >= 30 && !pro;
             return (
               <button key={s} className={`btn-speed ${speed === s ? 'active' : ''} ${gated ? 'gated' : ''}`}
-                onClick={() => gated ? setPayOpen(true) : setSpeed(s)}>
+                onClick={() => gated ? setPayOpen(s) : setSpeed(s)}>
                 {gated ? '🔒' : ''}{s}×
               </button>
             );
@@ -347,12 +434,28 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
                 </div>
               ))}
             </div>
+            {world && (
+              <div className="world-board">
+                <div className="world-title">🌍 Top traders on this match</div>
+                {world.slice(0, 5).map((w: any, i: number) => (
+                  <div key={i} className={`settle-row ${w.nick === nick ? 'you' : ''}`}>
+                    <span>{i + 1}. {w.nick}{w.nick === nick ? ' (you)' : ''}</span>
+                    <span className={w.pnl >= 0 ? 'up' : 'down'}>{w.pnl >= 0 ? '+' : ''}{fmtC(w.pnl)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
             {attest && (
               <a className="attest-link" href={attest.solscan} target="_blank" rel="noreferrer">
                 ⛓ Provably settled on Solana — verify ↗
               </a>
             )}
-            <button className="btn-buy" onClick={onOpenPicker}>Trade another match</button>
+            <div className="settle-actions">
+              <button className="btn-sell share-btn" onClick={() => shareCard(renderShareCard({ tape, endCash: pf.cash }), `I turned 1,000 coins into ${fmtC(pf.cash)} trading ${tape.home} v ${tape.away} on Touchline Trader`)}>
+                📤 Share result
+              </button>
+              <button className="btn-buy" onClick={onOpenPicker}>Trade another match</button>
+            </div>
           </div>
         </div>
       )}
@@ -360,11 +463,11 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
         free to play · play coins · no real money · <button className="fair-link" onClick={() => setFairOpen(true)}>⛓ provably fair</button>
       </footer>
       {fairOpen && <FairModal onClose={() => setFairOpen(false)} />}
-      {payOpen && (
-        <div className="modal-backdrop" onClick={() => setPayOpen(false)}>
+      {payOpen != null && (
+        <div className="modal-backdrop" onClick={() => setPayOpen(null)}>
           <div className="modal pay" onClick={e => e.stopPropagation()}>
             <h2>⚡ Touchline Pro</h2>
-            <p className="muted">Warp speed replays, the danger-state overlay, and entry-fee rooms with coin prizes.</p>
+            <p className="muted">Warp-speed replays and entry-fee rooms with coin prizes.</p>
             <div className="pay-tiers">
               <div className="pay-tier">
                 <div className="pay-name">Coin packs</div>
@@ -374,11 +477,15 @@ function MatchSession({ tape, onOpenPicker }: { tape: TapeBundle; onOpenPicker: 
               <div className="pay-tier featured">
                 <div className="pay-name">Pro season pass</div>
                 <div className="pay-price">$4.99 / mo</div>
-                <div className="pay-note">30× &amp; 60× replays · danger overlay · Pro rooms (5% coin rake)</div>
+                <div className="pay-note">30× &amp; 60× warp replays · entry-fee rooms (5% coin rake) · trader badges</div>
               </div>
             </div>
-            <button className="btn-buy" onClick={() => { localStorage.setItem('tt-pro', '1'); setPro(true); setPayOpen(false); }}>
-              Start free hackathon trial
+            <button className="btn-buy" onClick={() => {
+              localStorage.setItem('tt-pro', '1'); setPro(true);
+              const want = payOpen; setPayOpen(null);
+              if (want && SPEEDS.includes(want)) setSpeed(want);
+            }}>
+              Try Pro free — unlock {payOpen && payOpen >= 30 ? `${payOpen}×` : 'everything'} now
             </button>
             <p className="muted" style={{ marginTop: 8 }}>Demo build: checkout is mocked — the trial unlocks everything.</p>
           </div>

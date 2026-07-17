@@ -9,6 +9,14 @@ export interface ReplayCallbacks {
   onEnd?: () => void;
 }
 
+/** Session time bounds for a tape — start shortly before kickoff, end at the last event/tick. */
+export function tapeBounds(tape: TapeBundle): { t0: number; t1: number } {
+  const t0 = Math.max(tape.ticks[0]?.t ?? tape.kickoff, tape.kickoff - 10 * 60 * 1000);
+  const lastEv = tape.events[tape.events.length - 1]?.t ?? tape.kickoff;
+  const lastTick = tape.ticks[tape.ticks.length - 1]?.t ?? lastEv;
+  return { t0, t1: Math.max(lastEv, lastTick) };
+}
+
 export class ReplayClock {
   readonly tape: TapeBundle;
   speed = 10;
@@ -26,11 +34,9 @@ export class ReplayClock {
   constructor(tape: TapeBundle, cb: ReplayCallbacks) {
     this.tape = tape;
     this.cb = cb;
-    // start a touch before kickoff so the pre-match market is visible
-    this.t0 = Math.max(tape.ticks[0]?.t ?? tape.kickoff, tape.kickoff - 10 * 60 * 1000);
-    const lastEv = tape.events[tape.events.length - 1]?.t ?? tape.kickoff;
-    const lastTick = tape.ticks[tape.ticks.length - 1]?.t ?? lastEv;
-    this.t1 = Math.max(lastEv, lastTick);
+    const { t0, t1 } = tapeBounds(tape);
+    this.t0 = t0;
+    this.t1 = t1;
     this.t = this.t0;
     this.syncIndices();
   }
@@ -70,7 +76,9 @@ export class ReplayClock {
   }
 
   seek(fraction: number) {
-    this.t = this.t0 + Math.min(1, Math.max(0, fraction)) * (this.t1 - this.t0);
+    // clamp shy of the end so the fulltime event always plays out through advance()
+    // (seeking exactly to t1 would sync indices past FT and strand the match unsettled)
+    this.t = this.t0 + Math.min(0.995, Math.max(0, fraction)) * (this.t1 - this.t0);
     this.syncIndices();
     // replay the latest tick so UI prices refresh immediately
     const tk = this.currentTick();
