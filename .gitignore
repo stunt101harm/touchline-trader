@@ -7,3 +7,4 @@ dist/
 /tapes/
 /captures/
 .env.txline
+.env.ingest

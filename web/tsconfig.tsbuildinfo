@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/chart.tsx","./src/main.tsx","./src/replay.ts","./shared/engine.ts","./shared/normalize.ts","./shared/types.ts","./worker/index.ts"],"version":"5.9.3"}
+{"root":["./src/app.tsx","./src/chart.tsx","./src/livesession.tsx","./src/bots.ts","./src/live.ts","./src/main.tsx","./src/replay.ts","./shared/engine.ts","./shared/normalize.ts","./shared/types.ts","./worker/index.ts"],"version":"5.9.3"}
