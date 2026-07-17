@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "touchline-trader",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-07-01",
+  "assets": {
+    "directory": "./dist/client",
+    "not_found_handling": "single-page-application",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "touchline",
+      "database_id": "26902605-a9cb-48e3-b581-5f26ed5778e0"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [{ "name": "MATCH_ROOM", "class_name": "MatchRoom" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["MatchRoom"] }],
+  "vars": { "APP_ENV": "production" },
+  "observability": { "enabled": true }
+}
