@@ -89,13 +89,20 @@ app.post('/api/claim', async (c) => {
     "SELECT tx, amount FROM token_grants WHERE wallet = ?1 AND kind = 'claim'"
   ).bind(wallet).first<{ tx: string; amount: number }>();
   if (existing) return c.json({ ok: true, alreadyClaimed: true, amount: existing.amount, tx: existing.tx, mint: TT_MINT.toBase58() });
+  // lock first via the unique index so a confirm-timeout retry can never double-send
+  try {
+    await c.env.DB.prepare(
+      "INSERT INTO token_grants (wallet, kind, fixture_id, amount, tx, ts) VALUES (?1, 'claim', 0, ?2, 'pending', ?3)"
+    ).bind(wallet, CLAIM_AMOUNT, Date.now()).run();
+  } catch {
+    return c.json({ error: 'claim already in flight' }, 409);
+  }
   try {
     const tx = await sendTT(c.env.DEVNET_WALLET_SECRET, wallet, CLAIM_AMOUNT, c.env.TOKEN_RPC);
-    await c.env.DB.prepare(
-      "INSERT INTO token_grants (wallet, kind, fixture_id, amount, tx, ts) VALUES (?1, 'claim', 0, ?2, ?3, ?4)"
-    ).bind(wallet, CLAIM_AMOUNT, tx, Date.now()).run();
+    await c.env.DB.prepare("UPDATE token_grants SET tx = ?1 WHERE wallet = ?2 AND kind = 'claim'").bind(tx, wallet).run();
     return c.json({ ok: true, amount: CLAIM_AMOUNT, tx, mint: TT_MINT.toBase58() });
   } catch (e: any) {
+    await c.env.DB.prepare("DELETE FROM token_grants WHERE wallet = ?1 AND kind = 'claim' AND tx = 'pending'").bind(wallet).run();
     return c.json({ error: `transfer failed: ${e.message}` }, 502);
   }
 });
@@ -114,12 +121,22 @@ app.post('/api/payout', async (c) => {
   ).bind(b.wallet, b.fixtureId).first<{ tx: string; amount: number }>();
   if (existing) return c.json({ ok: true, alreadyPaid: true, amount: existing.amount, tx: existing.tx });
   try {
+    await c.env.DB.prepare(
+      "INSERT INTO token_grants (wallet, kind, fixture_id, amount, tx, ts) VALUES (?1, 'payout', ?2, ?3, 'pending', ?4)"
+    ).bind(b.wallet, b.fixtureId, amount, Date.now()).run();
+  } catch {
+    return c.json({ error: 'payout already in flight' }, 409);
+  }
+  try {
     const tx = await sendTT(c.env.DEVNET_WALLET_SECRET, b.wallet, amount, c.env.TOKEN_RPC);
     await c.env.DB.prepare(
-      "INSERT INTO token_grants (wallet, kind, fixture_id, amount, tx, ts) VALUES (?1, 'payout', ?2, ?3, ?4, ?5)"
-    ).bind(b.wallet, b.fixtureId, amount, tx, Date.now()).run();
+      "UPDATE token_grants SET tx = ?1 WHERE wallet = ?2 AND kind = 'payout' AND fixture_id = ?3"
+    ).bind(tx, b.wallet, b.fixtureId).run();
     return c.json({ ok: true, amount, tx });
   } catch (e: any) {
+    await c.env.DB.prepare(
+      "DELETE FROM token_grants WHERE wallet = ?1 AND kind = 'payout' AND fixture_id = ?2 AND tx = 'pending'"
+    ).bind(b.wallet, b.fixtureId).run();
     return c.json({ error: `transfer failed: ${e.message}` }, 502);
   }
 });

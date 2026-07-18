@@ -35,7 +35,15 @@ export async function sendTT(secret: string, recipient: string, amount: number, 
   tx.feePayer = authority.publicKey;
   tx.sign(authority);
   const sig = await conn.sendRawTransaction(tx.serialize());
-  await conn.confirmTransaction({ signature: sig, ...bh }, 'confirmed');
+  // Patient status polling — blockhash-expiry confirmTransaction gives up while the
+  // tx still lands on congested devnet. If unresolved after ~24s, return the sig
+  // optimistically: the caller's grant row already locks against double-sends.
+  for (let i = 0; i < 12; i++) {
+    await new Promise(r => setTimeout(r, 2000));
+    const st = (await conn.getSignatureStatuses([sig])).value[0];
+    if (st?.err) throw new Error(`tx failed on-chain: ${JSON.stringify(st.err)}`);
+    if (st?.confirmationStatus === 'confirmed' || st?.confirmationStatus === 'finalized') return sig;
+  }
   return sig;
 }
 
