@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS scores (
   mode TEXT NOT NULL DEFAULT 'replay',     -- replay | live
   pnl INTEGER NOT NULL,
   equity INTEGER NOT NULL,
-  ts INTEGER NOT NULL
+  ts INTEGER NOT NULL,
+  room TEXT                                -- challenge-room code, null = global
 );
 CREATE INDEX IF NOT EXISTS idx_scores_fixture ON scores (fixture_id, pnl DESC);
 

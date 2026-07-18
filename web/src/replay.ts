@@ -22,7 +22,7 @@ export class ReplayClock {
   speed = 10;
   private cb: ReplayCallbacks;
   private t: number;
-  private raf = 0;
+  private timer: ReturnType<typeof setInterval> | null = null;
   private lastReal = 0;
   private running = false;
   private tickIdx = 0;
@@ -55,24 +55,26 @@ export class ReplayClock {
     if (this.running) return;
     this.running = true;
     this.lastReal = performance.now();
-    const loop = (nowReal: number) => {
+    // interval-driven, not rAF: rAF stalls under tab throttling / battery savers,
+    // which would freeze the match clock. 100ms steps keep chart updates coalesced.
+    this.timer = setInterval(() => {
       if (!this.running) return;
-      const dt = (nowReal - this.lastReal) * this.speed;
+      const nowReal = performance.now();
+      // cap the step so a heavily-throttled or backgrounded tab resumes where it
+      // left off instead of leaping forward by the entire time away
+      const dt = Math.min(nowReal - this.lastReal, 1000) * this.speed;
       this.lastReal = nowReal;
       this.advance(dt);
       if (this.t >= this.t1) {
-        this.running = false;
+        this.pause();
         this.cb.onEnd?.();
-        return;
       }
-      this.raf = requestAnimationFrame(loop);
-    };
-    this.raf = requestAnimationFrame(loop);
+    }, 100);
   }
 
   pause() {
     this.running = false;
-    cancelAnimationFrame(this.raf);
+    if (this.timer) { clearInterval(this.timer); this.timer = null; }
   }
 
   seek(fraction: number) {

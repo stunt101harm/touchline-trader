@@ -10,6 +10,8 @@ import type { LiveMatch } from './live';
 import { confetti } from './confetti';
 import { renderShareCard, shareCard } from './share';
 import { hasWallet, connectWallet, savedWallet, claimTT, payoutTT, solscanTx, short } from './wallet';
+import { FloorCommentator, type FloorLine } from './commentary';
+import { recordResult, careerSummary, currentRoom, setRoom, makeRoomCode, roomLink } from './career';
 
 const NICKS = ['Maverick', 'Tifosi', 'Gaffer', 'Poacher', 'Regista', 'Libero', 'Trequartista', 'Enganche'];
 function myName(): string {
@@ -38,6 +40,8 @@ export default function App() {
   const params = useMemo(() => new URLSearchParams(location.search), []);
 
   useEffect(() => {
+    const room = params.get('room');
+    if (room) setRoom(room);
     fetch('/tapes/index.json').then(r => r.json() as Promise<TapeManifestEntry[]>).then((m) => {
       setManifest(m);
       const wanted = Number(params.get('match'));
@@ -103,6 +107,19 @@ export default function App() {
             )}
             <h2>⏪ Time Traveler</h2>
             <p className="muted">Replay any match. Trade it like it's live — your clock, your market.</p>
+            <CareerStrip />
+            {tape && (
+              <button className="picker-row challenge-row" onClick={() => {
+                const code = currentRoom() ?? makeRoomCode();
+                setRoom(code);
+                navigator.clipboard?.writeText(roomLink(code, tape.fixtureId)).catch(() => {});
+                alert(`Room ${code} — challenge link copied!\n\nSend it to friends: everyone trades ${tape.home} v ${tape.away} and the room leaderboard settles it.`);
+              }}>
+                <span className="picker-label">⚔️ 1v1</span>
+                <span className="picker-match">Challenge friends on this match</span>
+                <span className="picker-score">{currentRoom() ? `room ${currentRoom()}` : 'copy link'}</span>
+              </button>
+            )}
             {manifest.map(e => (
               <button key={e.fixtureId} className="picker-row" onClick={() => loadTape(e.fixtureId)}>
                 <span className="picker-label">{e.label}</span>
@@ -113,6 +130,18 @@ export default function App() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function CareerStrip() {
+  const s = careerSummary();
+  if (s.matches === 0) return null;
+  return (
+    <div className="career-strip">
+      📈 Your record: <b>{s.matches}</b> market{s.matches === 1 ? '' : 's'} ·{' '}
+      <b className={s.total >= 0 ? 'up' : 'down'}>{s.total >= 0 ? '+' : ''}{s.total.toLocaleString()}</b> lifetime
+      {s.best && s.best.pnl > 0 && <> · best <b className="up">+{s.best.pnl.toLocaleString()}</b> ({s.best.match})</>}
     </div>
   );
 }
@@ -184,6 +213,7 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
   const [wallet, setWallet] = useState<string | null>(savedWallet());
   const [claimTx, setClaimTx] = useState<string | null>(null);
   const [payout, setPayout] = useState<{ amount: number; tx?: string } | null>(null);
+  const [floor, setFloor] = useState<FloorLine | null>(null);
   const [, forceUi] = useState(0); // portfolio changes
 
   const doConnect = async () => {
@@ -218,16 +248,18 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
   useEffect(() => {
     const pf = pfRef.current;
     const bots = botsRef.current;
+    const floorC = new FloorCommentator({ home: tape.home, away: tape.away }, setFloor);
     const rc = new ReplayClock(tape, {
-      onTick: (tick) => { chart.current?.pushTick(tick); bots.onTick(tick); setPrices([...tick.p] as any); },
+      onTick: (tick) => { chart.current?.pushTick(tick); bots.onTick(tick); floorC.onTick(tick); setPrices([...tick.p] as any); },
       onEvent: (ev) => {
         chart.current?.addEventMarker(ev, tape.home, tape.away);
         bots.onEvent(ev);
-        if (ev.score) setScore(ev.score);
-        if (ev.clockSec != null) setClockSec(ev.clockSec);
+        if (ev.score) { setScore(ev.score); floorC.onScore(ev.score); }
+        if (ev.clockSec != null) { setClockSec(ev.clockSec); floorC.onClock(ev.clockSec); }
+        floorC.onEvent(ev, rc.currentTick());
         handleEvent(ev);
       },
-      onDanger: (d) => { bots.onDanger(d); setDanger(d.state === 'safe' ? null : d); },
+      onDanger: (d) => { bots.onDanger(d); floorC.onDanger(d); setDanger(d.state === 'safe' ? null : d); },
       onTime: (_, p) => setProgress(p),
       onEnd: () => setRunning(false),
     });
@@ -274,10 +306,11 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
             bots.settleAll(tape.final.winner);
             setSettled(true);
             if (pf.cash > STARTING_CASH) confetti();
+            const room = currentRoom();
             fetch('/api/score', {
               method: 'POST', headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({ fixtureId: tape.fixtureId, nick, mode: 'replay', pnl: pf.cash - STARTING_CASH, equity: pf.cash }),
-            }).then(() => fetch(`/api/score/${tape.fixtureId}`))
+              body: JSON.stringify({ fixtureId: tape.fixtureId, nick, mode: 'replay', pnl: pf.cash - STARTING_CASH, equity: pf.cash, room }),
+            }).then(() => fetch(`/api/score/${tape.fixtureId}${room ? `?room=${room}` : ''}`))
               .then(r => r.ok ? r.json() : null)
               .then(rows => Array.isArray(rows) && rows.length ? setWorld(rows) : null)
               .catch(() => {});
@@ -285,6 +318,10 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
             if (w && pf.cash > STARTING_CASH) {
               payoutTT(w, tape.fixtureId, pf.cash - STARTING_CASH).then(setPayout);
             }
+            recordResult({
+              fixtureId: tape.fixtureId, match: `${tape.home} v ${tape.away}`,
+              pnl: Math.round(pf.cash - STARTING_CASH), mode: 'replay', ts: Date.now(),
+            });
           }
           break;
         }
@@ -293,6 +330,7 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
     }
 
     clockRef.current = rc;
+    if (import.meta.env.DEV) (window as any).__rc = rc;
     const spd = initialSpeed && SPEEDS.includes(initialSpeed) ? initialSpeed : 10;
     rc.speed = spd;
     setSpeedState(spd);
@@ -321,7 +359,12 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
     const wasRunning = rc.isRunning;
     rc.pause(); // stop event delivery while we rebuild — prevents duplicate markers
     chart.current?.reset();
-    const target = rc.t0 + Math.min(0.995, f) * (rc.t1 - rc.t0);
+    // never scrub past the full-time event — the tape carries post-match ticks,
+    // so a raw clamp near t1 could skip FT and strand the session unsettled
+    const ft = tape.events.find(e => e.kind === 'fulltime');
+    const maxFrac = ft ? Math.max(0, (ft.t - 3000 - rc.t0) / (rc.t1 - rc.t0)) : 0.995;
+    f = Math.min(f, maxFrac, 0.995);
+    const target = rc.t0 + f * (rc.t1 - rc.t0);
     const upto = tape.ticks.filter(t => t.t <= target);
     const step = Math.max(1, Math.floor(upto.length / 500));
     for (let i = 0; i < upto.length; i += step) chart.current?.pushTick(upto[i]);
@@ -394,6 +437,12 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
       </div>
 
       <MarketChart ref={chart} focus={focus} />
+
+      {floor && (
+        <div key={floor.text} className={`floor floor-${floor.tone}`}>
+          <span className="floor-icon">🎙</span> {floor.text}
+        </div>
+      )}
 
       <div className="outcomes">
         {OUTCOMES.map((o, i) => {
@@ -474,7 +523,7 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
             </div>
             {world && (
               <div className="world-board">
-                <div className="world-title">🌍 Top traders on this match</div>
+                <div className="world-title">{currentRoom() ? `🏟 Room ${currentRoom()} — this match` : '🌍 Top traders on this match'}</div>
                 {world.slice(0, 5).map((w: any, i: number) => (
                   <div key={i} className={`settle-row ${w.nick === nick ? 'you' : ''}`}>
                     <span>{i + 1}. {w.nick}{w.nick === nick ? ' (you)' : ''}</span>

@@ -7,6 +7,8 @@ import { MarketChart, type ChartHandle } from './Chart';
 import { BotEngine } from './bots';
 import { LiveFeed, type LiveMatch } from './live';
 import { savedWallet, payoutTT, solscanTx } from './wallet';
+import { FloorCommentator, type FloorLine } from './commentary';
+import { recordResult, currentRoom } from './career';
 
 const fmtP = (v: number) => `${v.toFixed(1)}¢`;
 const fmtC = (v: number) => Math.round(v).toLocaleString();
@@ -30,6 +32,7 @@ export default function LiveSession({ match, nick, onOpenPicker }: { match: Live
   const [settled, setSettled] = useState(false);
   const [finalMeta, setFinalMeta] = useState<LiveMatch | null>(null);
   const [payout, setPayout] = useState<{ amount: number; tx?: string } | null>(null);
+  const [floor, setFloor] = useState<FloorLine | null>(null);
   const [, forceUi] = useState(0);
 
   const toast = (text: string, cls = '') => {
@@ -41,15 +44,17 @@ export default function LiveSession({ match, nick, onOpenPicker }: { match: Live
   useEffect(() => {
     const pf = pfRef.current;
     const bots = botsRef.current;
+    const floorC = new FloorCommentator({ home: match.home, away: match.away }, setFloor);
     const feed = new LiveFeed(match.fixture_id, {
-      onTick: (tick: Tick) => { chart.current?.pushTick(tick); bots.onTick(tick); setPrices([...tick.p] as any); },
-      onDanger: (d) => { bots.onDanger(d); setDanger(d.state === 'safe' ? null : d); },
+      onTick: (tick: Tick) => { chart.current?.pushTick(tick); bots.onTick(tick); floorC.onTick(tick); setPrices([...tick.p] as any); },
+      onDanger: (d) => { bots.onDanger(d); floorC.onDanger(d); setDanger(d.state === 'safe' ? null : d); },
       onMeta: (m) => setStatus(m.status),
       onEvent: (ev: MatchEvent) => {
         chart.current?.addEventMarker(ev, match.home, match.away);
         bots.onEvent(ev);
-        if (ev.score) setScore(ev.score);
-        if (ev.clockSec != null) setClockSec(ev.clockSec);
+        floorC.onEvent(ev, feedRef.current?.currentTick() ?? null);
+        if (ev.score) { setScore(ev.score); floorC.onScore(ev.score); }
+        if (ev.clockSec != null) { setClockSec(ev.clockSec); floorC.onClock(ev.clockSec); }
         const name = ev.team === 1 ? match.home : ev.team === 2 ? match.away : '';
         if (ev.kind === 'goal') {
           toast(`⚽ GOAL — ${name}!`, 'toast-goal');
@@ -75,10 +80,14 @@ export default function LiveSession({ match, nick, onOpenPicker }: { match: Live
           const eq = pf.cash;
           fetch('/api/score', {
             method: 'POST', headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ fixtureId: m.fixture_id, nick, mode: 'live', pnl: eq - STARTING_CASH, equity: eq }),
+            body: JSON.stringify({ fixtureId: m.fixture_id, nick, mode: 'live', pnl: eq - STARTING_CASH, equity: eq, room: currentRoom() }),
           }).catch(() => {});
           const w = savedWallet();
           if (w && eq > STARTING_CASH) payoutTT(w, m.fixture_id, eq - STARTING_CASH).then(setPayout);
+          recordResult({
+            fixtureId: m.fixture_id, match: `${m.home} v ${m.away}`,
+            pnl: Math.round(eq - STARTING_CASH), mode: 'live', ts: Date.now(),
+          });
         }
       },
     });
@@ -131,6 +140,12 @@ export default function LiveSession({ match, nick, onOpenPicker }: { match: Live
       </header>
 
       <MarketChart ref={chart} focus={focus} />
+
+      {floor && (
+        <div key={floor.text} className={`floor floor-${floor.tone}`}>
+          <span className="floor-icon">🎙</span> {floor.text}
+        </div>
+      )}
 
       <div className="outcomes">
         {OUTCOMES.map((o, i) => {

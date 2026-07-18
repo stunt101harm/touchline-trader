@@ -64,19 +64,25 @@ app.get('/api/live/:id/events', async (c) => {
 
 /** Post a finished session's score to the shared leaderboard. */
 app.post('/api/score', async (c) => {
-  const b = await c.req.json<{ fixtureId: number; nick: string; mode?: string; pnl: number; equity: number }>();
+  const b = await c.req.json<{ fixtureId: number; nick: string; mode?: string; pnl: number; equity: number; room?: string }>();
   if (!b.fixtureId || typeof b.nick !== 'string' || !Number.isFinite(b.pnl)) return c.text('bad request', 400);
   const nick = b.nick.slice(0, 24).replace(/[^\w\s\-']/g, '');
+  const room = typeof b.room === 'string' ? b.room.slice(0, 8).toUpperCase().replace(/[^A-Z0-9]/g, '') : null;
   await c.env.DB.prepare(
-    'INSERT INTO scores (fixture_id, nick, mode, pnl, equity, ts) VALUES (?1,?2,?3,?4,?5,?6)'
-  ).bind(b.fixtureId, nick, b.mode ?? 'replay', Math.round(b.pnl), Math.round(b.equity), Date.now()).run();
+    'INSERT INTO scores (fixture_id, nick, mode, pnl, equity, ts, room) VALUES (?1,?2,?3,?4,?5,?6,?7)'
+  ).bind(b.fixtureId, nick, b.mode ?? 'replay', Math.round(b.pnl), Math.round(b.equity), Date.now(), room).run();
   return c.json({ ok: true });
 });
 
 app.get('/api/score/:id', async (c) => {
-  const { results } = await c.env.DB.prepare(
-    'SELECT nick, mode, pnl, equity, ts FROM scores WHERE fixture_id = ?1 ORDER BY pnl DESC LIMIT 20'
-  ).bind(Number(c.req.param('id'))).all();
+  const room = c.req.query('room');
+  const { results } = room
+    ? await c.env.DB.prepare(
+        'SELECT nick, mode, pnl, equity, ts FROM scores WHERE fixture_id = ?1 AND room = ?2 ORDER BY pnl DESC LIMIT 20'
+      ).bind(Number(c.req.param('id')), room.toUpperCase()).all()
+    : await c.env.DB.prepare(
+        'SELECT nick, mode, pnl, equity, ts FROM scores WHERE fixture_id = ?1 ORDER BY pnl DESC LIMIT 20'
+      ).bind(Number(c.req.param('id'))).all();
   return c.json(results);
 });
 

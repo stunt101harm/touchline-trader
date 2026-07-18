@@ -16,6 +16,15 @@ Built solo for the **TxLINE World Cup Hackathon** (TxODDS × Solana / Superteam 
 
 **▶ Live app: https://touchline-trader.h-dhaliwal2250.workers.dev** — no signup; you land inside a replaying match in seconds.
 
+## For judges — 90 seconds to the good stuff
+
+1. **Open the app** — you're inside the England–Argentina semifinal at 10×. Tap **BUY** on anyone.
+2. **[Argentina's late comeback, moments away](https://touchline-trader.h-dhaliwal2250.workers.dev/?match=18241006&t=0.86)** — buy Argentina at ~25¢, then watch two late goals send your position to 96¢.
+3. **[A 0–0 that pays the brave](https://touchline-trader.h-dhaliwal2250.workers.dev/?match=18213979&t=0.5)** — Norway v England: the draw grinds upward all match; regulation draws settle the draw leg at 100¢.
+4. **⏪ MATCHES** → replay any of 16 real World Cup matches, or **⚔️ challenge a friend** to the same match with a room link.
+5. **⛓ Connect** (Phantom, devnet) → 1,000 Touchline Coins airdropped on-chain; winnings pay out automatically with a Solscan receipt.
+6. Footer **⛓ provably fair** → every settled market's Merkle attestation + the TxLINE subscription purchase tx.
+
 ## Technical documentation
 
 ### Architecture
