@@ -1,12 +1,16 @@
 // Touchline Trader Worker — API + static assets. The judged replay path is served
-// entirely from bundled static tapes; these routes add live mode + leaderboards on top.
+// entirely from bundled static tapes; these routes add live mode, leaderboards, and
+// the on-chain TT-coin economy (claim airdrops + winnings payouts on Solana devnet).
 import { Hono } from 'hono';
+import { sendTT, isValidPubkey, CLAIM_AMOUNT, MAX_PAYOUT, TT_MINT } from './tokens';
 
 type Env = {
   ASSETS: Fetcher;
   DB: D1Database;
   MATCH_ROOM: DurableObjectNamespace;
   INGEST_KEY?: string;
+  DEVNET_WALLET_SECRET?: string;
+  TOKEN_RPC?: string;
 };
 
 const app = new Hono<{ Bindings: Env }>();
@@ -74,6 +78,50 @@ app.get('/api/score/:id', async (c) => {
     'SELECT nick, mode, pnl, equity, ts FROM scores WHERE fixture_id = ?1 ORDER BY pnl DESC LIMIT 20'
   ).bind(Number(c.req.param('id'))).all();
   return c.json(results);
+});
+
+/** One-time on-chain claim: airdrop CLAIM_AMOUNT TT (devnet SPL) to a connected wallet. */
+app.post('/api/claim', async (c) => {
+  if (!c.env.DEVNET_WALLET_SECRET) return c.json({ error: 'onchain economy not configured' }, 503);
+  const { wallet } = await c.req.json<{ wallet: string }>();
+  if (!isValidPubkey(wallet)) return c.json({ error: 'invalid wallet' }, 400);
+  const existing = await c.env.DB.prepare(
+    "SELECT tx, amount FROM token_grants WHERE wallet = ?1 AND kind = 'claim'"
+  ).bind(wallet).first<{ tx: string; amount: number }>();
+  if (existing) return c.json({ ok: true, alreadyClaimed: true, amount: existing.amount, tx: existing.tx, mint: TT_MINT.toBase58() });
+  try {
+    const tx = await sendTT(c.env.DEVNET_WALLET_SECRET, wallet, CLAIM_AMOUNT, c.env.TOKEN_RPC);
+    await c.env.DB.prepare(
+      "INSERT INTO token_grants (wallet, kind, fixture_id, amount, tx, ts) VALUES (?1, 'claim', 0, ?2, ?3, ?4)"
+    ).bind(wallet, CLAIM_AMOUNT, tx, Date.now()).run();
+    return c.json({ ok: true, amount: CLAIM_AMOUNT, tx, mint: TT_MINT.toBase58() });
+  } catch (e: any) {
+    return c.json({ error: `transfer failed: ${e.message}` }, 502);
+  }
+});
+
+/** Per-match winnings payout: transfer positive P&L as TT tokens, once per (wallet, fixture). */
+app.post('/api/payout', async (c) => {
+  if (!c.env.DEVNET_WALLET_SECRET) return c.json({ error: 'onchain economy not configured' }, 503);
+  const b = await c.req.json<{ wallet: string; fixtureId: number; pnl: number }>();
+  if (!isValidPubkey(b.wallet) || !Number.isFinite(b.fixtureId) || !Number.isFinite(b.pnl)) {
+    return c.json({ error: 'bad request' }, 400);
+  }
+  const amount = Math.min(MAX_PAYOUT, Math.max(0, Math.round(b.pnl)));
+  if (amount <= 0) return c.json({ ok: true, amount: 0 });
+  const existing = await c.env.DB.prepare(
+    "SELECT tx, amount FROM token_grants WHERE wallet = ?1 AND kind = 'payout' AND fixture_id = ?2"
+  ).bind(b.wallet, b.fixtureId).first<{ tx: string; amount: number }>();
+  if (existing) return c.json({ ok: true, alreadyPaid: true, amount: existing.amount, tx: existing.tx });
+  try {
+    const tx = await sendTT(c.env.DEVNET_WALLET_SECRET, b.wallet, amount, c.env.TOKEN_RPC);
+    await c.env.DB.prepare(
+      "INSERT INTO token_grants (wallet, kind, fixture_id, amount, tx, ts) VALUES (?1, 'payout', ?2, ?3, ?4, ?5)"
+    ).bind(b.wallet, b.fixtureId, amount, tx, Date.now()).run();
+    return c.json({ ok: true, amount, tx });
+  } catch (e: any) {
+    return c.json({ error: `transfer failed: ${e.message}` }, 502);
+  }
 });
 
 // Everything else falls through to static assets (SPA + /tapes + /attestations).

@@ -29,3 +29,14 @@ CREATE TABLE IF NOT EXISTS scores (
   ts INTEGER NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_scores_fixture ON scores (fixture_id, pnl DESC);
+
+CREATE TABLE IF NOT EXISTS token_grants (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  wallet TEXT NOT NULL,
+  kind TEXT NOT NULL,               -- claim | payout
+  fixture_id INTEGER NOT NULL DEFAULT 0,
+  amount INTEGER NOT NULL,
+  tx TEXT NOT NULL,
+  ts INTEGER NOT NULL
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_grants_unique ON token_grants (wallet, kind, fixture_id);

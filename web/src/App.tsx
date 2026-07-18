@@ -9,6 +9,7 @@ import LiveSession from './LiveSession';
 import type { LiveMatch } from './live';
 import { confetti } from './confetti';
 import { renderShareCard, shareCard } from './share';
+import { hasWallet, connectWallet, savedWallet, claimTT, payoutTT, solscanTx, short } from './wallet';
 
 const NICKS = ['Maverick', 'Tifosi', 'Gaffer', 'Poacher', 'Regista', 'Libero', 'Trequartista', 'Enganche'];
 function myName(): string {
@@ -78,6 +79,7 @@ export default function App() {
               <li><b>Prices are live win odds</b> from the real betting market — 35¢ means a 35% chance.</li>
               <li><b>BUY the outcome you believe in.</b> Goals send prices soaring or crashing in seconds.</li>
               <li><b>SELL high to lock profit</b> — or hold to full time: the winner pays 100¢, the rest pay 0.</li>
+              <li><b>⏪ Matches</b> opens the library — replay any classic at warp speed, or join a live match.</li>
             </ul>
             <button className="btn-buy intro-go" onClick={closeIntro}>Start trading — you have 1,000 coins</button>
             <p className="muted">free to play · no real money · provably fair on Solana</p>
@@ -179,7 +181,27 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
   const [deltas, setDeltas] = useState<{ id: number; v: number }[]>([]);
   const [hasTraded, setHasTraded] = useState(() => localStorage.getItem('tt-traded') === '1');
   const [world, setWorld] = useState<any[] | null>(null);
+  const [wallet, setWallet] = useState<string | null>(savedWallet());
+  const [claimTx, setClaimTx] = useState<string | null>(null);
+  const [payout, setPayout] = useState<{ amount: number; tx?: string } | null>(null);
   const [, forceUi] = useState(0); // portfolio changes
+
+  const doConnect = async () => {
+    if (!hasWallet()) {
+      toast('Install Phantom to claim coins on-chain', 'toast-err');
+      window.open('https://phantom.app', '_blank');
+      return;
+    }
+    try {
+      const pk = await connectWallet();
+      setWallet(pk);
+      const res = await claimTT(pk);
+      setClaimTx(res.tx);
+      toast(res.alreadyClaimed ? `Wallet linked — ${res.amount} TT already claimed` : `⛓ ${res.amount} TT airdropped on-chain!`, 'toast-fill');
+    } catch (e: any) {
+      if (e.message !== 'no-wallet') toast('Wallet connection cancelled', 'toast-err');
+    }
+  };
 
   const toast = useCallback((text: string, cls = '') => {
     const id = Date.now() + Math.random();
@@ -253,6 +275,10 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
               .then(r => r.ok ? r.json() : null)
               .then(rows => Array.isArray(rows) && rows.length ? setWorld(rows) : null)
               .catch(() => {});
+            const w = savedWallet();
+            if (w && pf.cash > STARTING_CASH) {
+              payoutTT(w, tape.fixtureId, pf.cash - STARTING_CASH).then(setPayout);
+            }
           }
           break;
         }
@@ -339,15 +365,21 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
   return (
     <div className={`session ${flash ? `flash-${flash}` : ''} ${danger ? `danger-${danger.state}` : ''} ${shake ? 'shake' : ''}`}>
       <header>
-        <button className="btn-ghost" onClick={onOpenPicker}>⏪</button>
+        <button className="btn-matches" onClick={onOpenPicker}>⏪<span>Matches</span></button>
         <div className="title">
           <div className="match">{tape.home} <span className="score">{score[0]}–{score[1]}</span> {tape.away}</div>
           <div className="sub">{tape.meta.label ?? 'World Cup'} · {matchClock} {danger && danger.team !== 0 ? `· 🔥 ${danger.team === 1 ? tape.home : tape.away} ${danger.state.replace('_', ' ')}` : ''}</div>
         </div>
         {onHelp && <button className="btn-ghost help-pill" onClick={onHelp}>?</button>}
+        <button className={`wallet-chip ${wallet ? 'linked' : ''}`} onClick={doConnect}
+          title={wallet ? `Linked: ${wallet}` : 'Connect a Solana wallet to claim TT coins on-chain'}>
+          {wallet ? `⛓ ${short(wallet)}` : '⛓ Connect'}
+        </button>
         <div className="wallet">
           <div className={`pnl ${pnl >= 0 ? 'up' : 'down'}`}>{pnl >= 0 ? '+' : ''}{fmtC(pnl)}</div>
-          <div className="cash">{fmtC(eq)} coins</div>
+          <div className="cash" title="cash · total portfolio value (cash + positions at market price)">
+            {fmtC(pf.cash)} cash · {fmtC(eq)} total
+          </div>
         </div>
       </header>
       {goalBurst && <div className="goal-burst"><span>⚽ GOAL</span><em>{goalBurst}</em></div>}
@@ -449,6 +481,14 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
               <a className="attest-link" href={attest.solscan} target="_blank" rel="noreferrer">
                 ⛓ Provably settled on Solana — verify ↗
               </a>
+            )}
+            {payout && payout.amount > 0 && payout.tx && (
+              <a className="attest-link payout-link" href={solscanTx(payout.tx)} target="_blank" rel="noreferrer">
+                💰 {payout.amount} TT winnings paid to your wallet ↗
+              </a>
+            )}
+            {!wallet && pnl > 0 && (
+              <button className="btn-sell claim-nudge" onClick={doConnect}>⛓ Connect a wallet to claim winnings on-chain</button>
             )}
             <div className="settle-actions">
               <button className="btn-sell share-btn" onClick={() => shareCard(renderShareCard({ tape, endCash: pf.cash }), `I turned 1,000 coins into ${fmtC(pf.cash)} trading ${tape.home} v ${tape.away} on Touchline Trader`)}>

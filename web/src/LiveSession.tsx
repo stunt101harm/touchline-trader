@@ -6,6 +6,7 @@ import { buy, sell, settle, equity, newPortfolio, type Portfolio, STARTING_CASH 
 import { MarketChart, type ChartHandle } from './Chart';
 import { BotEngine } from './bots';
 import { LiveFeed, type LiveMatch } from './live';
+import { savedWallet, payoutTT, solscanTx } from './wallet';
 
 const fmtP = (v: number) => `${v.toFixed(1)}¢`;
 const fmtC = (v: number) => Math.round(v).toLocaleString();
@@ -28,6 +29,7 @@ export default function LiveSession({ match, nick, onOpenPicker }: { match: Live
   const [flash, setFlash] = useState<'up' | 'down' | null>(null);
   const [settled, setSettled] = useState(false);
   const [finalMeta, setFinalMeta] = useState<LiveMatch | null>(null);
+  const [payout, setPayout] = useState<{ amount: number; tx?: string } | null>(null);
   const [, forceUi] = useState(0);
 
   const toast = (text: string, cls = '') => {
@@ -75,6 +77,8 @@ export default function LiveSession({ match, nick, onOpenPicker }: { match: Live
             method: 'POST', headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ fixtureId: m.fixture_id, nick, mode: 'live', pnl: eq - STARTING_CASH, equity: eq }),
           }).catch(() => {});
+          const w = savedWallet();
+          if (w && eq > STARTING_CASH) payoutTT(w, m.fixture_id, eq - STARTING_CASH).then(setPayout);
         }
       },
     });
@@ -122,7 +126,7 @@ export default function LiveSession({ match, nick, onOpenPicker }: { match: Live
         </div>
         <div className="wallet">
           <div className={`pnl ${pnl >= 0 ? 'up' : 'down'}`}>{pnl >= 0 ? '+' : ''}{fmtC(pnl)}</div>
-          <div className="cash">{fmtC(eq)} coins</div>
+          <div className="cash" title="cash · total portfolio value">{fmtC(pf.cash)} cash · {fmtC(eq)} total</div>
         </div>
       </header>
 
@@ -170,6 +174,11 @@ export default function LiveSession({ match, nick, onOpenPicker }: { match: Live
             <div className="settle-score">{match.home} {finalMeta.reg_home}–{finalMeta.reg_away} {match.away}</div>
             <p>Market settled: <b>{finalMeta.winner === 'draw' ? 'Draw' : names[finalMeta.winner!]}</b> pays 100¢ per share.</p>
             <div className={`settle-pnl ${pnl >= 0 ? 'up' : 'down'}`}>{pnl >= 0 ? '+' : ''}{fmtC(pnl)} coins</div>
+            {payout && payout.amount > 0 && payout.tx && (
+              <a className="attest-link payout-link" href={solscanTx(payout.tx)} target="_blank" rel="noreferrer">
+                💰 {payout.amount} TT winnings paid to your wallet ↗
+              </a>
+            )}
             <p className="muted">Settlement attestation posts on-chain moments after the final whistle.</p>
             <button className="btn-buy" onClick={onOpenPicker}>Back to matches</button>
           </div>
