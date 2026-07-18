@@ -192,14 +192,20 @@ function MatchSession({ tape, onOpenPicker, onHelp, initialSpeed, initialSeek }:
       window.open('https://phantom.app', '_blank');
       return;
     }
+    let pk: string;
     try {
-      const pk = await connectWallet();
+      pk = await connectWallet();
       setWallet(pk);
+    } catch (e: any) {
+      if (e.message !== 'no-wallet') toast('Wallet connection cancelled', 'toast-err');
+      return;
+    }
+    try {
       const res = await claimTT(pk);
       setClaimTx(res.tx);
       toast(res.alreadyClaimed ? `Wallet linked — ${res.amount} TT already claimed` : `⛓ ${res.amount} TT airdropped on-chain!`, 'toast-fill');
-    } catch (e: any) {
-      if (e.message !== 'no-wallet') toast('Wallet connection cancelled', 'toast-err');
+    } catch {
+      toast('Wallet linked — on-chain claim will retry at settlement', 'toast-fill');
     }
   };
 
