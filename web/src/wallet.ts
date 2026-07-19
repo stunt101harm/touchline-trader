@@ -10,6 +10,9 @@ function provider(): any | null {
   const w = window as any;
   if (w.phantom?.solana?.isPhantom) return w.phantom.solana;
   if (w.solana) return w.solana;
+  if (w.braveSolana) return w.braveSolana; // Brave's built-in wallet injects here, not at window.solana
+  if (w.backpack?.isBackpack) return w.backpack;
+  if (w.solflare?.isSolflare) return w.solflare;
   return null;
 }
 
