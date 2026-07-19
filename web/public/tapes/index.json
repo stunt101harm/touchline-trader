@@ -1,5 +1,20 @@
 [
  {
+  "fixtureId": 18257865,
+  "home": "France",
+  "away": "England",
+  "kickoff": 1784408413795,
+  "label": "3rd place",
+  "final": {
+   "home": 4,
+   "away": 6,
+   "winner": "away"
+  },
+  "tickCount": 3283,
+  "eventCount": 140,
+  "featured": true
+ },
+ {
   "fixtureId": 18241006,
   "home": "England",
   "away": "Argentina",
@@ -11,8 +26,7 @@
    "winner": "away"
   },
   "tickCount": 3701,
-  "eventCount": 99,
-  "featured": true
+  "eventCount": 99
  },
  {
   "fixtureId": 18237038,

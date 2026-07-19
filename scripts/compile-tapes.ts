@@ -13,8 +13,9 @@ const OUT = fileURLToPath(new URL('../web/public/tapes', import.meta.url));
 mkdirSync(OUT, { recursive: true });
 
 const LABELS: Record<number, { label: string; featured?: boolean }> = {
+  18257865: { label: '3rd place', featured: true }, // France–England — recorded live by this app
   18237038: { label: 'Semi-final' },            // France–Spain
-  18241006: { label: 'Semi-final', featured: true }, // England–Argentina (two late goals)
+  18241006: { label: 'Semi-final' }, // England–Argentina (two late goals)
   18222446: { label: 'Quarter-final' },         // Argentina–Switzerland
   18213979: { label: 'Quarter-final' },         // Norway–England
   18218149: { label: 'Quarter-final' },         // Spain–Belgium

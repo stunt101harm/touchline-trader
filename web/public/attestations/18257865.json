@@ -1,0 +1,18 @@
+{
+ "fixtureId": 18257865,
+ "match": "France-England",
+ "regulation": [
+  4,
+  6
+ ],
+ "goals": [
+  4,
+  6
+ ],
+ "winner": "away",
+ "statRoot": "346twX6wRXJKFaTnazGULWHsh7cmETYrZrbNfbdANghP",
+ "seq": 1195,
+ "finalTs": 1784416014839,
+ "txSig": "3jsN6ApUKMMoCjw93eD4TiEgavG92uM9SqBp1Hj2WC6byZZnKKWVMFbiUoY4H3LL5vYMEmv3HkAHQforRUkRX6Vn",
+ "solscan": "https://solscan.io/tx/3jsN6ApUKMMoCjw93eD4TiEgavG92uM9SqBp1Hj2WC6byZZnKKWVMFbiUoY4H3LL5vYMEmv3HkAHQforRUkRX6Vn?cluster=devnet"
+}
