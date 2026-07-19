@@ -37,7 +37,18 @@ export default function App() {
   const [pickerOpen, setPickerOpen] = useState(false);
   const [introOpen, setIntroOpen] = useState(() => localStorage.getItem('tt-seen') !== '1');
   const nick = useMemo(myName, []);
-  const params = useMemo(() => new URLSearchParams(location.search), []);
+  const params = useMemo(() => {
+    const p = new URLSearchParams(location.search);
+    if (p.has('fresh')) {
+      // demo/testing helper: reset to the first-visit experience
+      ['tt-seen', 'tt-traded', 'tt-career', 'tt-pro', 'tt-nick', 'tt-wallet'].forEach(k => localStorage.removeItem(k));
+      sessionStorage.removeItem('tt-room');
+      p.delete('fresh');
+      history.replaceState(null, '', `${location.pathname}${p.toString() ? '?' + p.toString() : ''}`);
+      location.reload();
+    }
+    return p;
+  }, []);
 
   useEffect(() => {
     const room = params.get('room');

@@ -41,3 +41,25 @@
 **If you have last-night TV footage** (phone filming TV + app): splice ~8 seconds of it into Shot 2 right at a goal — broadcast left, app right. If not, Shot 2 already carries the segment: it's the real market data either way.
 
 **Timing:** film all 7 (~20 min), VO (~10 min), assemble (~30 min), upload unlisted YouTube. Hard target: submitted before the final kicks off (3 PM ET).
+
+---
+
+# ONE-TAKE VERSION (~4:30) — talk while you tap
+
+**Setup:** normal browser window (Phantom installed, devnet mode ON), sized phone-narrow (~420px). Do Not Disturb. Mic on — you narrate live. Start recording, then load:
+`https://touchline-trader.h-dhaliwal2250.workers.dev/?fresh=1`
+
+Fumbles are fine — a trading floor is messy. If a beat fails, say "the market waits for no one" and move on.
+
+| # | Do | Say (roughly) |
+|---|----|----|
+| 1 | Intro overlay appears over the running match. Pause 3s so it can be read. Tap **Start trading**. | "Last night France and England played a ten-goal thriller for the bronze. This is Touchline Trader — every match is a live stock market. Prices are real win-odds from TxLINE's consensus feed. A thousand coins, no signup." |
+| 2 | Tap **⛓ Connect** → approve in Phantom → wait for the airdrop toast. | "First, let's make it real: that's a thousand Touchline Coins airdropped to my wallet on Solana — an actual token, and my winnings will pay out to it automatically." |
+| 3 | Tap **BUY 100** on England. Let the chart run ~5s. | "England are favorites — I'm in at market price. Every tick you see is TxLINE's de-margined consensus probability, streamed live — their odds feed IS this chart." |
+| 4 | Drag the scrubber to the **cluster of gold dots** (the goals). Let goals fire — bursts, shake, P&L deltas, 🎙 Floor lines. React honestly. | "And here's where it gets violent — TEN goals in this match. Feel that? Every goal detonates the market. The Floor calls the drama; my position's swinging with every strike." |
+| 5 | Tap **🔒30×** → **Try Pro free** → let it warp toward full time. | "Warp speed is a Pro feature — one tap for the trial. There's a season pass, coin packs, and challenge rooms with a rake behind this." |
+| 6 | Full-time modal: P&L, bot rankings, world board, then click **⛓ Provably settled — verify ↗** (new tab: Solscan) and if in profit, **💰 winnings paid to your wallet ↗**. Return. | "Full time is settlement — winner pays a hundred cents. And it's provable: the result is anchored on Solana with TxLINE's Merkle proof root — and my profit just landed in my wallet as real tokens. Every market this app settles is auditable." |
+| 7 | Tap **Trade another match** → library: career strip, 17 matches, tap **⚔️ Challenge friends** (room code pops — dismiss). | "Every match of this World Cup is a market you can step back into — replayed from the real recorded data, includes last night, which our pipeline recorded live off TxLINE's streams. Or challenge your friends: same match, same odds, room leaderboard settles it." |
+| 8 | Tap **● Spain v Argentina** in "Live now" — the pre-match market is ticking. Maybe buy a cheeky position. End on the live chart. | "And tonight's final? The market is already open — this is live, right now, before kickoff. Built solo in 48 hours on TxLINE, Solana, and Cloudflare. Touchline Trader: don't just watch the match. Trade it." |
+
+**After the take (optional, +20s of credibility):** separately screen-record the terminal SSE one-liner from Shot 6 of the segmented script showing raw `data: {…"Pct":…}` lines, and splice it under beat 3's narration. If it's a hassle, skip — beat 3's spoken line covers the required TxLINE-backend explanation.
